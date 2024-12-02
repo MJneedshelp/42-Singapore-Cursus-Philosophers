@@ -1,6 +1,6 @@
 #include <pthread.h>
 #include <stdio.h>
-#define MAX_ITER 21000
+#define MAX_ITER 1000000
 
 
 

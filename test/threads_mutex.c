@@ -5,7 +5,8 @@
 #define GREEN "\033[0;32m"
 #define BLUE "\033[0;34m"
 #define RESET "\033[0m"
-#define MAX_ITER 25000
+#define MAX_ITER 1000000
+#define NO_THREADS 8
 
 typedef struct s_counter
 {
@@ -49,34 +50,35 @@ void	*thread_routine(void *data)
 
 int	main(void)
 {
-	pthread_t		tid1;
-	pthread_t		tid2;
+	pthread_t		thr[NO_THREADS];
 	t_counter		count;
+	int				i;
 
 	count.ct = 0;
+
 
 	//Init mutex
 	pthread_mutex_init(&count.ct_mutex, NULL);
 
 	//Thread creation
-	printf(RED "Main: Creating a first thread now" RESET "\n");
-	pthread_create(&tid1, NULL, thread_routine, &count);
-	printf(RED "Main: First thread created" RESET "\n");
-
-	printf(RED "Main: Creating a second thread now" RESET "\n");
-	pthread_create(&tid2, NULL, thread_routine, &count);
-	printf(RED "Main: Second thread created" RESET "\n");
+	i = 0;
+	while (i < NO_THREADS)
+	{
+		pthread_create(&(thr[i]), NULL, thread_routine, &count);
+		i++;
+	}
 
 	//Joining threads
-	pthread_join(tid1, NULL);
-	printf(RED "Main: joined thread: %ld" RESET "\n", tid1);
-
-	pthread_join(tid2, NULL);
-	printf(RED "Main: joined thread: %ld" RESET "\n", tid2);
+	i = 0;
+	while (i < NO_THREADS)
+	{
+		pthread_join(thr[i], NULL);
+		i++;
+	}
 
 
 	//Final count, mutex not required since all threads are joined already
-	printf(BLUE "Main: Final count after the 2 threads: %d" RESET "\n", count.ct);
+	printf(BLUE "Main: Final count after the %d threads: %d" RESET "\n", NO_THREADS, count.ct);
 
 
 	//Destroy mutex
