@@ -19,7 +19,7 @@ void	*thread_routine(void *data)
 	int			*addr;
 
 	tid = pthread_self();
-	sleep(1);
+	sleep(2);
 
 	addr = (int *)data;
 	printf(GREEN "Thread: %ld | Address: %p | Prime: %d" RESET "\n", tid, addr, *addr);
@@ -34,9 +34,6 @@ int	main(void)
 	pthread_t		thr[NO_THREADS];
 	int				i;
 	int				*address;
-
-
-
 
 	//Thread creation
 	i = 0;
