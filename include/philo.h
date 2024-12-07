@@ -1,0 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/07 10:49:46 by mintan            #+#    #+#             */
+/*   Updated: 2024/12/07 10:54:10 by mintan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef	PHILO_H
+# define PHILO_H
+
+#include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/time.h>
+
+
+//Probably need a structure that mallocs the number of threads based on input
+//Probably need a structure that also mallocs the number of mutexes
+
+
+
+
+#endif
+
+
+
