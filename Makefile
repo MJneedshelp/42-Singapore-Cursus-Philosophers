@@ -6,7 +6,7 @@
 #    By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/15 22:10:59 by mintan            #+#    #+#              #
-#    Updated: 2024/12/07 10:46:27 by mintan           ###   ########.fr        #
+#    Updated: 2024/12/07 12:24:55 by mintan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CFLAGS = -Wall -Werror -Wextra -pthread
 # Definitions
 NAME = philo
 SRCDIR = srcs
-SRCS = $(SRCDIR)/main.c
+SRCS = $(SRCDIR)/main.c $(SRCDIR)/init_philo.c $(SRCDIR)/utils/ft_atoi.c
 OBJ = $(SRCS:.c=.o)
 
 
