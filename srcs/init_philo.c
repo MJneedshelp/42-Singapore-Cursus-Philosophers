@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 12:12:44 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/07 12:32:30 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/07 13:11:27 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,14 @@ void	*routine(void *data)
 	if (data == NULL)
 		printf("Correct\n");
 	return (NULL);
+}
+
+/* Description: frees the memory allocated for the threads. 
+*/
+
+void	free_philos(t_philo *philo, int	num)
+{
+
 }
 
 
