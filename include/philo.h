@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:49:46 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/07 12:35:58 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/07 17:07:54 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,17 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
-typedef struct s_philo
+/* Definitions */
+// # define SUCCESS 0
+// # define ERROR 1
+
+
+
+//Probably need a structure that also mallocs the number of mutexes
+//Think abt structure for each philo
+
+
+typedef struct s_config
 {
 	int	no_phil;
 	int	die_ms;
@@ -27,25 +37,33 @@ typedef struct s_philo
 	int	sleep_ms;
 	int	eat_reps;
 	pthread_t	*cust;
-}	t_philo;
+}	t_config;
 
 
 /* Initialisation */
-void	arise_philos(t_philo *philo);
+int		arise_philos(t_config *config);
 
+
+
+
+
+/* Clean-up functions */
+void	join_philos(pthread_t *cust, int num);
 
 
 
 
 /* Utility functions */
+size_t	ft_strlen(const char *str);
 int		ft_atoi(const char *str);
+void	ft_putchar_fd(char c, int fd);
+void	ft_putstr_fd(char *s, int fd);
+void	ft_putendl_fd(char *s, int fd);
 
 
 
 
 
-//Probably need a structure that mallocs the number of threads based on input
-//Probably need a structure that also mallocs the number of mutexes
 
 
 

@@ -6,16 +6,17 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 11:25:48 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/07 12:36:13 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/07 17:30:51 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
+/* Description: Initialises all the input
+*/
 
 
-
-void	init_philo(t_philo *philo, int argc, char *argv[])
+int	init_config(t_config *philo, int argc, char *argv[])
 {
 	philo->no_phil = ft_atoi(argv[1]);
 	philo->die_ms = ft_atoi(argv[2]);
@@ -25,7 +26,11 @@ void	init_philo(t_philo *philo, int argc, char *argv[])
 	if (argc > 5)
 		philo->eat_reps = ft_atoi(argv[5]);
 	philo->cust = (pthread_t *)malloc(philo->no_phil * sizeof(pthread_t));
-	arise_philos(philo);
+	if (philo->cust == NULL)
+		exit (EXIT_FAILURE);
+	if (arise_philos(philo) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
 
@@ -35,14 +40,25 @@ void	init_philo(t_philo *philo, int argc, char *argv[])
 
 int	main(int argc, char *argv[])
 {
-	t_philo	philo;
+	t_config	config;
 
-	init_philo(&philo, argc, argv);
+	//Perfom input validation here first before initialisation
+	if (init_config(&config, argc, argv) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+
 
 	sleep(5);
-	printf("philo number: %d | die time: %d | eat time: %d | sleep time: %d | eat reps: %d\n", philo.no_phil, philo.die_ms, philo.eat_ms, philo.sleep_ms, philo.eat_ms);
-	printf("philo address: %p\n", philo.cust);
+	printf("philo number: %d | die time: %d | eat time: %d | sleep time: %d | eat reps: %d\n", config.no_phil, config.die_ms, config.eat_ms, config.sleep_ms, config.eat_ms);
 
+
+
+
+
+
+
+
+	join_philos(config.cust, config.no_phil);
+	free (config.cust);
 
 
 
