@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 11:25:48 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/10 18:13:55 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/10 19:21:49 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 int	init_config(t_config *philo, int argc, char *argv[])
 {
+
 	philo->no_phil = ft_atoi(argv[1]);
 	philo->die_ms = ft_atoi(argv[2]);
 	philo->eat_ms = ft_atoi(argv[3]);
@@ -26,8 +27,13 @@ int	init_config(t_config *philo, int argc, char *argv[])
 	if (argc > 5)
 		philo->eat_reps = ft_atoi(argv[5]);
 	philo->cust = (pthread_t *)malloc(philo->no_phil * sizeof(pthread_t));
-	if (philo->cust == NULL)
+	philo->cutlery = (t_fork *)malloc(philo->no_phil * sizeof(t_fork));
+	if (philo->cutlery == NULL || philo->cust == NULL)
+	{
+		dishwasher
 		exit (EXIT_FAILURE);
+	}
+
 
 	//function to create all the forks first before creating the threads
 	//the forks can then be assigned to the philo struct within the routine

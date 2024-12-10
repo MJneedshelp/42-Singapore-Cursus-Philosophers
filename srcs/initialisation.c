@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_philo.c                                       :+:      :+:    :+:   */
+/*   initialisation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 12:12:44 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/07 17:11:30 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/10 19:20:14 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,8 @@ void	*routine(void *data)
 	return (NULL);
 }
 
-/* Description: joins all the created philo threads. This function is used
-   at the start during the thread creation, when pthread_create fails, or
-   at the end of the programme. Breaks out of the loop if thread_join fails
+/* Description: Creates the cutlery
 */
-
-void	join_philos(pthread_t *cust, int num)
-{
-	int	i;
-
-	i = 0;
-	while (i < num)
-	{
-		if (pthread_join(cust[i], NULL) != 0)
-			break ;
-		i++;
-	}
-}
 
 /* Description: Creates the philo threads. If any of the thread creation fails,
    join all the created philos, then free the memory allocated for cust[].
@@ -72,3 +57,4 @@ int	arise_philos(t_config *config)
 	}
 	return (EXIT_SUCCESS);
 }
+

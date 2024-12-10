@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:49:46 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/10 17:22:13 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/10 19:19:58 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,13 @@
 
 typedef struct s_config
 {
-	int	no_phil;
-	int	die_ms;
-	int	eat_ms;
-	int	sleep_ms;
-	int	eat_reps;
+	int			no_phil;
+	int			die_ms;
+	int			eat_ms;
+	int			sleep_ms;
+	int			eat_reps;
 	pthread_t	*cust;
+	t_fork		*cutlery;
 }	t_config;
 
 
@@ -68,6 +69,8 @@ int		arise_philos(t_config *config);
 
 /* Clean-up functions */
 void	join_philos(pthread_t *cust, int num);
+void	dishwasher(t_config *config)
+
 
 
 
