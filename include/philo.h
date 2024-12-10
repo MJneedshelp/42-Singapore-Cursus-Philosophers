@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:49:46 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/07 17:07:54 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/10 17:22:13 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,25 @@ typedef struct s_config
 	int	eat_reps;
 	pthread_t	*cust;
 }	t_config;
+
+
+typedef struct s_fork
+{
+	int				fork_no;
+	pthread_mutex_t	mt_fork;
+}	t_fork;
+
+
+typedef struct s_philo
+{
+	int			p_no;
+	t_fork		*r_fork;
+	t_fork		*l_fork;
+}	t_philo
+
+
+//each thread is a philo
+//each
 
 
 /* Initialisation */
