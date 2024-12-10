@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:49:46 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/10 19:19:58 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/10 19:23:49 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_philo
 	int			p_no;
 	t_fork		*r_fork;
 	t_fork		*l_fork;
-}	t_philo
+}	t_philo;
 
 
 //each thread is a philo
@@ -69,7 +69,7 @@ int		arise_philos(t_config *config);
 
 /* Clean-up functions */
 void	join_philos(pthread_t *cust, int num);
-void	dishwasher(t_config *config)
+void	dishwasher(t_config *config);
 
 
 

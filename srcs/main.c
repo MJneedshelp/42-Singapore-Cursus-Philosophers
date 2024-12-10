@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 11:25:48 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/10 19:21:49 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/10 19:24:14 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,21 @@
 */
 
 
-int	init_config(t_config *philo, int argc, char *argv[])
+int	init_config(t_config *config, int argc, char *argv[])
 {
 
-	philo->no_phil = ft_atoi(argv[1]);
-	philo->die_ms = ft_atoi(argv[2]);
-	philo->eat_ms = ft_atoi(argv[3]);
-	philo->sleep_ms = ft_atoi(argv[4]);
-	philo->eat_reps = -1;
+	config->no_phil = ft_atoi(argv[1]);
+	config->die_ms = ft_atoi(argv[2]);
+	config->eat_ms = ft_atoi(argv[3]);
+	config->sleep_ms = ft_atoi(argv[4]);
+	config->eat_reps = -1;
 	if (argc > 5)
-		philo->eat_reps = ft_atoi(argv[5]);
-	philo->cust = (pthread_t *)malloc(philo->no_phil * sizeof(pthread_t));
-	philo->cutlery = (t_fork *)malloc(philo->no_phil * sizeof(t_fork));
-	if (philo->cutlery == NULL || philo->cust == NULL)
+		config->eat_reps = ft_atoi(argv[5]);
+	config->cust = (pthread_t *)malloc(config->no_phil * sizeof(pthread_t));
+	config->cutlery = (t_fork *)malloc(config->no_phil * sizeof(t_fork));
+	if (config->cutlery == NULL || config->cust == NULL)
 	{
-		dishwasher
+		dishwasher(config);
 		exit (EXIT_FAILURE);
 	}
 
@@ -41,7 +41,7 @@ int	init_config(t_config *philo, int argc, char *argv[])
 
 
 
-	if (arise_philos(philo) == EXIT_FAILURE)
+	if (arise_philos(config) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
