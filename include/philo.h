@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:49:46 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/10 19:23:49 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/11 01:25:53 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,7 @@
 //Think abt structure for each philo
 
 
-typedef struct s_config
-{
-	int			no_phil;
-	int			die_ms;
-	int			eat_ms;
-	int			sleep_ms;
-	int			eat_reps;
-	pthread_t	*cust;
-	t_fork		*cutlery;
-}	t_config;
+
 
 
 typedef struct s_fork
@@ -55,6 +46,16 @@ typedef struct s_philo
 	t_fork		*l_fork;
 }	t_philo;
 
+typedef struct s_config
+{
+	int			no_phil;
+	int			die_ms;
+	int			eat_ms;
+	int			sleep_ms;
+	int			eat_reps;
+	pthread_t	*cust;
+	t_fork		*cutlery;
+}	t_config;
 
 //each thread is a philo
 //each
@@ -62,6 +63,8 @@ typedef struct s_philo
 
 /* Initialisation */
 int		arise_philos(t_config *config);
+int		create_forks(t_config *config);
+
 
 
 

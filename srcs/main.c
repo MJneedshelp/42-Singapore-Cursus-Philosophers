@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 11:25:48 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/10 19:24:14 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/11 01:24:39 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ int	init_config(t_config *config, int argc, char *argv[])
 	if (config->cutlery == NULL || config->cust == NULL)
 	{
 		dishwasher(config);
-		exit (EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	}
+	if (create_forks(config) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 
 
 	//function to create all the forks first before creating the threads

@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 12:12:44 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/10 19:20:14 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/11 01:22:33 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,36 @@ int	arise_philos(t_config *config)
 	if (status != EXIT_SUCCESS)
 	{
 		join_philos(config->cust, i);
-		free(config->cust);
-		return (EXIT_FAILURE);
+		dishwasher(config);
 	}
-	return (EXIT_SUCCESS);
+	return (status);
 }
 
+/* Description: Creates the fork structures and store in an aray of forks
+*/
+int	create_forks(t_config *config)
+{
+	int	i;
+	int	status;
+
+	i = 0;
+	status = EXIT_SUCCESS;
+	while (i < config->no_phil)
+	{
+		config->cutlery[i].fork_no = i + 1;
+		if (pthread_mutex_init(&(config->cutlery[i].mt_fork), NULL) != 0)
+		{
+			ft_putendl_fd("Error creating forks", STDERR_FILENO);
+			status = EXIT_FAILURE;
+			break;
+		}
+		printf("Created fork: %d\n", i + 1);
+		i++;
+	}
+	if (status != EXIT_SUCCESS)
+	{
+		//destroy created mutexes
+		dishwasher(config);
+	}
+	return (status);
+}
