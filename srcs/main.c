@@ -6,19 +6,21 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 11:25:48 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/11 01:24:39 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/12 09:31:39 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
 /* Description: Initialises all the input
+   XXXXX EXPLAIN ALL THE DIFFERENT MEMBERS IN YOUR STRUCT PLS
 */
 
 
 int	init_config(t_config *config, int argc, char *argv[])
 {
 
+	config->ctr = 0;
 	config->no_phil = ft_atoi(argv[1]);
 	config->die_ms = ft_atoi(argv[2]);
 	config->eat_ms = ft_atoi(argv[3]);
