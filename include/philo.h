@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:49:46 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/12 09:31:15 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/12 23:19:41 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,54 +19,49 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
-/* Definitions */
-// # define SUCCESS 0
-// # define ERROR 1
+/* Forward declare s_config and s_philo as they will be referencing
+   each other */
 
+typedef struct s_config	t_config;
+typedef struct s_philo	t_philo;
 
-
-//Probably need a structure that also mallocs the number of mutexes
-//Think abt structure for each philo
-
-
-
-
-
-typedef struct s_fork
-{
-	int				fork_no;
-	pthread_mutex_t	mt_fork;
-}	t_fork;
-
-
-typedef struct s_philo
-{
-	int			p_no;
-	t_fork		*r_fork;
-	t_fork		*l_fork;
-
-}	t_philo;
-
+/* Define s_config struct. Configuration structure to hold all the important
+   information*/
 typedef struct s_config
 {
-	int			no_phil;
-	int			die_ms;
-	int			eat_ms;
-	int			sleep_ms;
-	int			eat_reps;
-	pthread_t	*cust;
-	t_fork		*cutlery;
-	int			ctr;
+	int				no_phil;
+	int				die_ms;
+	int				eat_ms;
+	int				sleep_ms;
+	int				eat_reps;
+	pthread_t		*cust;
+	pthread_mutex_t	*mt_forks;
+	t_philo			*philos;
+	// int			ctr;
+	// t_fork		*cutlery;
 	//might need a counter inside that each thread needs to access
 	//which also means that this config probably needs a mutex representing the counter
 }	t_config;
 
-//each thread is a philo
-//each
+/* Define the s_philo struct. Contains the characteristics of each philo philo thread
+*/
+typedef struct s_philo
+{
+	int			p_no;
+	// last_eat_time
+	int			r_fork;
+	int			l_fork;
+	int			eat_times;
+	t_config	*config;
+}	t_philo;
+
 
 
 /* Initialisation */
+void	init_philos(t_config *cfg, t_philo *philos, int no_phil);
+
 int		arise_philos(t_config *config);
+
 int		create_forks(t_config *config);
 
 

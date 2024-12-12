@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 19:05:55 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/10 19:20:19 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/12 23:21:02 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,21 @@
 
 /* Description: Frees all the memory allocated in the config data structure.
    Members to free (SO FAR):
-	- config->cust
-	- config->cutlery
+	- cfg->cust
+	- cfg->mt_forks
+	- cfg->philos
 */
-void	dishwasher(t_config *config)
+void	dishwasher(t_config *cfg)
 {
-	if (config->cust != NULL)
-		free (config->cust);
-	if (config->cutlery != NULL)
-		free (config->cutlery);
+	if (cfg->cust != NULL)
+		free (cfg->cust);
+	if (cfg->mt_forks != NULL)
+		free (cfg->mt_forks);
+	if (cfg->philos != NULL)
+		free (cfg->philos);
+	cfg->cust = NULL;
+	cfg->mt_forks = NULL;
+	cfg->philos = NULL;
 }
 
 
