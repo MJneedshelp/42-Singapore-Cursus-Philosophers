@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 12:12:44 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/12 23:20:45 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/13 01:32:09 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,12 @@ int	arise_philos(t_config *cfg)
 	status = EXIT_SUCCESS;
 	while (i < cfg->no_phil)
 	{
-		if (pthread_create(&(cfg->cust[i]), NULL, routine, NULL) != 0)
+		if (pthread_create(&(cfg->cust[i]), NULL, meal_start, &(cfg->philos[i])) != 0)
 		{
 			ft_putendl_fd("Error creating philos", STDERR_FILENO);
 			status = EXIT_FAILURE;
 			break ;
 		}
-		printf("Inside pthread_t: %lu\n", cfg->cust[i]);
 		i++;
 	}
 	if (status != EXIT_SUCCESS)
@@ -82,31 +81,32 @@ int	arise_philos(t_config *cfg)
 	return (status);
 }
 
-/* Description: Creates the fork structures and store in an aray of forks
+/* Description: Creates an array of mutex objects where each mutex represents
+   a fork. If there are errors encountered uring the mutex creation, destroy
+   the previously created mutex.
 */
-// int	create_forks(t_config *cfg)
-// {
-// 	int	i;
-// 	int	status;
+int	create_forks(t_config *cfg, pthread_mutex_t *mt_forks, int no_phil)
+{
+	int	i;
+	int	status;
 
-// 	i = 0;
-// 	status = EXIT_SUCCESS;
-// 	while (i < cfg->no_phil)
-// 	{
-// 		config->cutlery[i].fork_no = i + 1;
-// 		if (pthread_mutex_init(&(config->cutlery[i].mt_fork), NULL) != 0)
-// 		{
-// 			ft_putendl_fd("Error creating forks", STDERR_FILENO);
-// 			status = EXIT_FAILURE;
-// 			break;
-// 		}
-// 		printf("Created fork: %d\n", i + 1);
-// 		i++;
-// 	}
-// 	if (status != EXIT_SUCCESS)
-// 	{
-// 		//destroy created mutexes
-// 		dishwasher(config);
-// 	}
-// 	return (status);
-// }
+	i = 0;
+	status = EXIT_SUCCESS;
+	while (i < no_phil)
+	{
+		if (pthread_mutex_init(&(mt_forks[i]), NULL) != 0)
+		{
+			ft_putendl_fd("Error creating forks", STDERR_FILENO);
+			status = EXIT_FAILURE;
+			break;
+		}
+		printf("Created fork: %d\n", i + 1);
+		i++;
+	}
+	if (status != EXIT_SUCCESS)
+	{
+		destroy_mutex_array(mt_forks, i);
+		dishwasher(cfg);
+	}
+	return (status);
+}

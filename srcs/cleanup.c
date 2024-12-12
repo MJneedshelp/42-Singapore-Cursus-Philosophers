@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 19:05:55 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/12 23:21:02 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/13 00:54:19 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,22 @@ void	join_philos(pthread_t *cust, int num)
 	{
 		if (pthread_join(cust[i], NULL) != 0)
 			break ;
+		i++;
+	}
+}
+
+/* Description: Takes in a number and an array of pthread_mutex_t objects.
+   Iterates n times through the array of pthread_mutex_t objects and destroys
+   each mutex object.
+*/
+void	destroy_mutex_array(pthread_mutex_t *mt_arr, int n)
+{
+	int i;
+
+	i = 0;
+	while (i < n)
+	{
+		pthread_mutex_destroy(&(mt_arr[i]));
 		i++;
 	}
 }

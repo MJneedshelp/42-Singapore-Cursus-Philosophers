@@ -6,7 +6,7 @@
 #    By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/15 22:10:59 by mintan            #+#    #+#              #
-#    Updated: 2024/12/10 19:21:23 by mintan           ###   ########.fr        #
+#    Updated: 2024/12/13 01:33:10 by mintan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CFLAGS = -Wall -Werror -Wextra -pthread
 # Definitions
 NAME = philo
 SRCDIR = srcs
-RELATIVE_SRCS = main.c initialisation.c cleanup.c \
+RELATIVE_SRCS = main.c initialisation.c routine.c cleanup.c \
 /utils/ft_atoi.c /utils/ft_putchar_fd.c /utils/ft_strlen.c \
 /utils/ft_putendl_fd.c /utils/ft_putstr_fd.c
 

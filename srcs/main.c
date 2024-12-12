@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 11:25:48 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/12 23:35:52 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/13 01:24:35 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,19 @@ int	init_config(t_config *cfg, int argc, char *argv[])
 		return (EXIT_FAILURE);
 	}
 	init_philos(cfg, cfg->philos, cfg->no_phil);
+	if (create_forks(cfg, cfg->mt_forks, cfg->no_phil) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	if (arise_philos(cfg) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 
 
-
-
-	// if (create_forks(cfg) == EXIT_FAILURE)
-	// 	return (EXIT_FAILURE);
-
-
-	//function to create all the forks first before creating the threads
-	//the forks can then be assigned to the philo struct within the routine
 	//some way to start tracking the time
 
 
 
-	// if (arise_philos(cfg) == EXIT_FAILURE)
-	// 	return (EXIT_FAILURE);
+
 	return (EXIT_SUCCESS);
 }
-
-
 
 
 

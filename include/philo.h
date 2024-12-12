@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:49:46 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/12 23:19:41 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/13 01:17:25 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ typedef struct s_config
 	pthread_t		*cust;
 	pthread_mutex_t	*mt_forks;
 	t_philo			*philos;
-	// int			ctr;
-	// t_fork		*cutlery;
 	//might need a counter inside that each thread needs to access
 	//which also means that this config probably needs a mutex representing the counter
 }	t_config;
@@ -59,10 +57,8 @@ typedef struct s_philo
 
 /* Initialisation */
 void	init_philos(t_config *cfg, t_philo *philos, int no_phil);
-
-int		arise_philos(t_config *config);
-
-int		create_forks(t_config *config);
+int		arise_philos(t_config *cfg);
+int		create_forks(t_config *cfg, pthread_mutex_t *mt_forks, int no_phil);
 
 
 
@@ -74,6 +70,7 @@ void	*meal_start(void *data);
 
 /* Clean-up functions */
 void	join_philos(pthread_t *cust, int num);
+void	destroy_mutex_array(pthread_mutex_t *mt_arr, int n);
 void	dishwasher(t_config *config);
 
 
