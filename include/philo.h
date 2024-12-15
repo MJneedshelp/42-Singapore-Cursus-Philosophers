@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:49:46 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/15 11:26:23 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/15 12:13:48 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,17 @@
 
 typedef struct s_config	t_config;
 typedef struct s_philo	t_philo;
+
+
+
+enum	e_state
+{
+	EAT,
+	THINK,
+	SLEEP
+};
+
+
 
 /* Define s_config struct. Configuration structure to hold all the important
    information*/
@@ -47,7 +58,9 @@ typedef struct s_philo
 	// last_eat_time
 	int			r_fork;
 	int			l_fork;
+	int			state;
 	int			eat_times;
+	int			exit_status;	//update the status here to pass the information back out to the main thread to handle
 	t_config	*config;
 }	t_philo;
 

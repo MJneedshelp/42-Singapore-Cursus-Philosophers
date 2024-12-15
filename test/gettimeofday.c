@@ -18,7 +18,7 @@ int	main(void)
 			exit(EXIT_FAILURE);
 		}
 		printf("Seconds from epoch: %ld\n", tv.tv_sec);
-		printf("Microseconds past the current second:%ld\n", tv.tv_usec);
+		printf("Microseconds:%ld | Milliseconds (/1000): %ld | Milliseconds (truncate): %3ld \n", tv.tv_usec, tv.tv_usec / 1000, tv.tv_usec);
 		i++;
 		sleep(1);
 	}
