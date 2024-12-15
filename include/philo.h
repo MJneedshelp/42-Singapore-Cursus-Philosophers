@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:49:46 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/15 12:13:48 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/15 15:43:25 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,18 @@ typedef struct s_config
 */
 typedef struct s_philo
 {
-	int			p_no;
+	int				p_no;
 	// last_eat_time
-	int			r_fork;
-	int			l_fork;
-	int			state;
-	int			eat_times;
-	int			exit_status;	//update the status here to pass the information back out to the main thread to handle
-	t_config	*config;
+	int				r_no;
+	int				l_no;
+
+	pthread_mutex_t	*r_fork;
+	pthread_mutex_t	*l_fork;
+
+	int				state;
+	int				eat_times;
+	int				exit_status;	//update the status here to pass the information back out to the main thread to handle
+	t_config		*config;
 }	t_philo;
 
 

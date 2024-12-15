@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 11:25:48 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/13 01:24:35 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/15 15:59:48 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	main(int argc, char *argv[])
 {
 	t_config	cfg;
 
-	int			i;
+	// int			i;
 
 	//Perfom input validation here first before initialisation
 
@@ -68,18 +68,16 @@ int	main(int argc, char *argv[])
 	if (init_config(&cfg, argc, argv) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 
-	printf("Address of config: %p\n", &cfg);
-	i = 0;
-	while (i < cfg.no_phil)
-	{
-		printf("Philo: %d | eat times: %d | cfg addr: %p | r_fork: %d | l_fork: %d\n", \
-		(&cfg.philos[i])->p_no, (&cfg.philos[i])->eat_times, (&cfg.philos[i])->config, (&cfg.philos[i])->r_fork, (&cfg.philos[i])->l_fork);
-		i++;
-	}
+	// i = 0;
+	// while (i < cfg.no_phil)
+	// {
+	// 	printf("Philo: %d | eat times: %d | cfg addr: %p | r_fork: %p | l_fork: %p\n", 
+	// 	(&cfg.philos[i])->p_no, (&cfg.philos[i])->eat_times, (&cfg.philos[i])->config, (&cfg.philos[i])->r_fork, (&cfg.philos[i])->l_fork);
+	// 	i++;
+	// }
 
 
 	sleep(5);
-	printf("philo number: %d | die time: %d | eat time: %d | sleep time: %d | eat reps: %d\n", cfg.no_phil, cfg.die_ms, cfg.eat_ms, cfg.sleep_ms, cfg.eat_ms);
 
 
 

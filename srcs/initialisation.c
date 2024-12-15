@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 12:12:44 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/13 01:32:09 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/15 15:44:08 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,19 @@ void	init_philos(t_config *cfg, t_philo *philos, int no_phil)
 		philos[i].config = cfg;
 		philos[i].eat_times = 0;
 		philos[i].p_no = i + 1;
-		philos[i].r_fork = i;
+		philos[i].r_no = i;
+		philos[i].r_fork = &(cfg->mt_forks[i]);
+
 		if (i == 0)
-			philos[i].l_fork = no_phil - 1;
+		{
+			philos[i].l_fork = &(cfg->mt_forks[no_phil - 1]);
+			philos[i].l_no = no_phil - 1;
+		}
 		else
-			philos[i].l_fork = i - 1;
+		{
+			philos[i].l_fork = &(cfg->mt_forks[i - 1]);
+			philos[i].l_no = i - 1;
+		}
 		i++;
 	}
 }
@@ -100,7 +108,7 @@ int	create_forks(t_config *cfg, pthread_mutex_t *mt_forks, int no_phil)
 			status = EXIT_FAILURE;
 			break;
 		}
-		printf("Created fork: %d\n", i + 1);
+		printf("Created fork: %d | Address: %p\n", i + 1, &(mt_forks[i]));
 		i++;
 	}
 	if (status != EXIT_SUCCESS)
