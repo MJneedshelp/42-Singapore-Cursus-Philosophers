@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:49:46 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/13 01:17:25 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/15 11:26:23 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ typedef struct s_config
 	pthread_t		*cust;
 	pthread_mutex_t	*mt_forks;
 	t_philo			*philos;
-	//might need a counter inside that each thread needs to access
-	//which also means that this config probably needs a mutex representing the counter
 }	t_config;
 
 /* Define the s_philo struct. Contains the characteristics of each philo philo thread

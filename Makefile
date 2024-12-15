@@ -6,7 +6,7 @@
 #    By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/15 22:10:59 by mintan            #+#    #+#              #
-#    Updated: 2024/12/13 01:33:10 by mintan           ###   ########.fr        #
+#    Updated: 2024/12/15 11:27:43 by mintan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ all: $(NAME) print_art
 # Target to make using Make bonus
 bonus: $(NAME_BONUS) print_art
 
-# Generate the mandatory programme by compiling the objects with libft.a
+# Generate the mandatory programme by compiling the objects
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $@
 
