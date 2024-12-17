@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   routine.c                                          :+:      :+:    :+:   */
+/*   meal.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 09:14:02 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/15 18:16:03 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/16 03:41:40 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-
+/* Description: Keeps checking the all_philos_seated member in cfg. Lock and
+   unlock the cfg mutex when reading the member.
+*/
+int	wait_table_set
 
 
 
@@ -34,6 +37,7 @@ void	*meal_start(void *data)
 	usec_sleep = 3000000;
 	me = (t_philo *)data;
 
+	// wait all philos to arise
 	//implement a while loop with either condition 1 or no. of times eaten in each philo routine
 	//1 more thread that just goes around checking if each philo is dead
 	//possibly 1 mutex for each member in the philo struct that the waiter and the philo is changing

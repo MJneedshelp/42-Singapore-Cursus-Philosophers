@@ -6,11 +6,17 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 11:25:48 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/15 15:59:48 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/17 08:48:09 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+/* Description: Sets the all_philos_seated member to TRUE
+*/
+
+
+
 
 /* Description: Initialises all the input
    XXXXX EXPLAIN ALL THE DIFFERENT MEMBERS IN YOUR STRUCT PLS
@@ -27,6 +33,9 @@ int	init_config(t_config *cfg, int argc, char *argv[])
 	cfg->eat_reps = -1;
 	if (argc > 5)
 		cfg->eat_reps = ft_atoi(argv[5]);
+
+	cfg->all_philo_seated = FALSE;
+
 	cfg->cust = (pthread_t *)malloc(cfg->no_phil * sizeof(pthread_t));
 	cfg->mt_forks = (pthread_mutex_t *)malloc(cfg->no_phil * sizeof(pthread_mutex_t));
 	cfg->philos = (t_philo *)malloc(cfg->no_phil * sizeof(t_philo));
@@ -38,15 +47,6 @@ int	init_config(t_config *cfg, int argc, char *argv[])
 	init_philos(cfg, cfg->philos, cfg->no_phil);
 	if (create_forks(cfg, cfg->mt_forks, cfg->no_phil) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	if (arise_philos(cfg) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-
-
-	//some way to start tracking the time
-
-
-
-
 	return (EXIT_SUCCESS);
 }
 
@@ -61,17 +61,27 @@ int	main(int argc, char *argv[])
 
 	//Perfom input validation here first before initialisation
 
-
+	// setup functions for getting and settiung mutexes
 
 
 
 	if (init_config(&cfg, argc, argv) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 
+
+	//create philos
+	if (arise_philos(&cfg) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+
+	//set all_philos_seated to TRUE -> rmb to lock mutex and unlock mutex
+	//all the other philos will be checking this var in the cfg
+
+
+	//create a waiter thread
 	// i = 0;
 	// while (i < cfg.no_phil)
 	// {
-	// 	printf("Philo: %d | eat times: %d | cfg addr: %p | r_fork: %p | l_fork: %p\n", 
+	// 	printf("Philo: %d | eat times: %d | cfg addr: %p | r_fork: %p | l_fork: %p\n",
 	// 	(&cfg.philos[i])->p_no, (&cfg.philos[i])->eat_times, (&cfg.philos[i])->config, (&cfg.philos[i])->r_fork, (&cfg.philos[i])->l_fork);
 	// 	i++;
 	// }

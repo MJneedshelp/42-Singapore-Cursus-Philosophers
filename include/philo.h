@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:49:46 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/15 15:43:25 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/17 08:35:20 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,32 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
+
+/* Colours used for formatting printf*/
+#define RED "\033[0;31m"
+#define GREEN "\033[0;32m"
+#define BLUE "\033[0;34m"
+#define RESET "\033[0m"
+
 /* Forward declare s_config and s_philo as they will be referencing
    each other */
 
 typedef struct s_config	t_config;
 typedef struct s_philo	t_philo;
 
+enum	e_bool
+{
+	FALSE,
+	TRUE
+};
 
 
 enum	e_state
 {
 	EAT,
 	THINK,
-	SLEEP
+	SLEEP,
+	DEAD
 };
 
 
@@ -45,6 +58,8 @@ typedef struct s_config
 	int				eat_ms;
 	int				sleep_ms;
 	int				eat_reps;
+	int				meal_end;
+	int				all_philo_seated;
 	pthread_t		*cust;
 	pthread_mutex_t	*mt_forks;
 	t_philo			*philos;
@@ -55,16 +70,19 @@ typedef struct s_config
 typedef struct s_philo
 {
 	int				p_no;
+	int				full;
 	// last_eat_time
 	int				r_no;
 	int				l_no;
-
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
+	pthread_mutex_t	*first_fork;
+	pthread_mutex_t	*second_fork;
+
+	// probably a mutex here to prevent data race with the monitor
 
 	int				state;
 	int				eat_times;
-	int				exit_status;	//update the status here to pass the information back out to the main thread to handle
 	t_config		*config;
 }	t_philo;
 

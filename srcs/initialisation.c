@@ -6,22 +6,41 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 12:12:44 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/15 15:44:08 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/17 00:38:10 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-// REMOVE LATER
-void	*routine(void *data)
-{
-	pthread_t	tid;
+/* Description: Iterates through an array of philos and assigns an order to the
+   forks based on the philo number:
+	- Even philo:
+		- first: right fork
+		- second: left fork
+	- Odd philo:
+		- first: left fork
+		- second: right fork
+*/
 
-	tid = pthread_self();
-	printf("Philo: %ld is alive!!\n", tid);
-	if (data == NULL)
-		printf("Correct\n");
-	return (NULL);
+void	assign_forks(t_philo *philos, int no_phil)
+{
+	int	i;
+
+	i = 0;
+	while (i < no_phil)
+	{
+		if (philos[i].p_no % 2 == 0)
+		{
+			philos[i].first_fork = philos[i].r_fork;
+			philos[i].second_fork = philos[i].l_fork;
+		}
+		else
+		{
+			philos[i].first_fork = philos[i].l_fork;
+			philos[i].second_fork = philos[i].r_fork;
+		}
+		i++;
+	}
 }
 
 /* Description: Initialises the members of the philo array for each philo in
@@ -39,7 +58,7 @@ void	init_philos(t_config *cfg, t_philo *philos, int no_phil)
 		philos[i].p_no = i + 1;
 		philos[i].r_no = i;
 		philos[i].r_fork = &(cfg->mt_forks[i]);
-
+		philos[i].full = FALSE;
 		if (i == 0)
 		{
 			philos[i].l_fork = &(cfg->mt_forks[no_phil - 1]);
@@ -52,6 +71,7 @@ void	init_philos(t_config *cfg, t_philo *philos, int no_phil)
 		}
 		i++;
 	}
+	assign_forks(philos, no_phil);
 }
 
 
