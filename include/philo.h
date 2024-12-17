@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:49:46 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/17 08:35:20 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/17 09:39:11 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ typedef struct s_philo	t_philo;
 
 enum	e_bool
 {
-	FALSE,
-	TRUE
+	FALSE = 24,
+	TRUE = 42
 };
 
 
@@ -61,6 +61,7 @@ typedef struct s_config
 	int				meal_end;
 	int				all_philo_seated;
 	pthread_t		*cust;
+	pthread_mutex_t	mt_cfg;
 	pthread_mutex_t	*mt_forks;
 	t_philo			*philos;
 }	t_config;
@@ -95,7 +96,7 @@ int		create_forks(t_config *cfg, pthread_mutex_t *mt_forks, int no_phil);
 
 
 
-/* Rountine */
+/* Meal time */
 void	*meal_start(void *data);
 
 
@@ -116,6 +117,13 @@ int		ft_atoi(const char *str);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
+
+/* Mutex utility functions */
+int	mutex_init(pthread_mutex_t *mt);
+int	set_bool(int *bool, int bool_val, pthread_mutex_t *mt);
+int	get_bool(int *bool, pthread_mutex_t *mt);
+
+
 
 
 

@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 11:25:48 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/17 08:48:09 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/17 09:50:26 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ int	init_config(t_config *cfg, int argc, char *argv[])
 
 	cfg->all_philo_seated = FALSE;
 
+	if (mutex_init(&(cfg->mt_cfg)) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+
+	printf("cfg mutex address: %p\n", &(cfg->mt_cfg));
+
 	cfg->cust = (pthread_t *)malloc(cfg->no_phil * sizeof(pthread_t));
 	cfg->mt_forks = (pthread_mutex_t *)malloc(cfg->no_phil * sizeof(pthread_mutex_t));
 	cfg->philos = (t_philo *)malloc(cfg->no_phil * sizeof(t_philo));
@@ -56,8 +61,7 @@ int	init_config(t_config *cfg, int argc, char *argv[])
 int	main(int argc, char *argv[])
 {
 	t_config	cfg;
-
-	// int			i;
+	int			test_bool;
 
 	//Perfom input validation here first before initialisation
 
@@ -70,8 +74,16 @@ int	main(int argc, char *argv[])
 
 
 	//create philos
-	if (arise_philos(&cfg) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
+	// if (arise_philos(&cfg) == EXIT_FAILURE)
+	// 	return (EXIT_FAILURE);
+
+
+	test_bool = get_bool(&(cfg.all_philo_seated), &cfg.mt_cfg);
+	printf("test bool before set: %d\n", test_bool);
+
+	test_bool = set_bool(&(cfg.all_philo_seated), TRUE, &cfg.mt_cfg);
+	printf("test bool after set: %d\n", cfg.all_philo_seated);
+
 
 	//set all_philos_seated to TRUE -> rmb to lock mutex and unlock mutex
 	//all the other philos will be checking this var in the cfg

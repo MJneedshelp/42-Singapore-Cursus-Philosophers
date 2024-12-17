@@ -6,7 +6,7 @@
 #    By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/15 22:10:59 by mintan            #+#    #+#              #
-#    Updated: 2024/12/17 08:32:57 by mintan           ###   ########.fr        #
+#    Updated: 2024/12/17 09:46:43 by mintan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ NAME = philo
 SRCDIR = srcs
 RELATIVE_SRCS = main.c initialisation.c meal.c cleanup.c \
 /utils/ft_atoi.c /utils/ft_putchar_fd.c /utils/ft_strlen.c \
-/utils/ft_putendl_fd.c /utils/ft_putstr_fd.c
+/utils/ft_putendl_fd.c /utils/ft_putstr_fd.c /utils/mt_utils.c
 
 SRCS = $(addprefix $(SRCDIR)/, $(RELATIVE_SRCS))
 OBJ = $(SRCS:.c=.o)

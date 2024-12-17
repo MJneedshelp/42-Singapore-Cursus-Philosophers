@@ -15,7 +15,7 @@
 /* Description: Keeps checking the all_philos_seated member in cfg. Lock and
    unlock the cfg mutex when reading the member.
 */
-int	wait_table_set
+// int	wait_table_set
 
 
 
