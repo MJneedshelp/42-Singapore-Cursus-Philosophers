@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 12:12:44 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/17 00:38:10 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/17 12:15:40 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,16 @@ void	assign_forks(t_philo *philos, int no_phil)
 
 /* Description: Initialises the members of the philo array for each philo in
    the array of philos. Assigns the following
+   XXXXXXXXXXXXXXXXXX fill in later
 */
-void	init_philos(t_config *cfg, t_philo *philos, int no_phil)
+int	init_philos(t_config *cfg, t_philo *philos, int no_phil)
 {
 	int	i;
 
 	i = 0;
 	while (i < no_phil)
 	{
-		philos[i].config = cfg;
+		philos[i].cfg = cfg;
 		philos[i].eat_times = 0;
 		philos[i].p_no = i + 1;
 		philos[i].r_no = i;
@@ -72,6 +73,9 @@ void	init_philos(t_config *cfg, t_philo *philos, int no_phil)
 		i++;
 	}
 	assign_forks(philos, no_phil);
+	if (mutex_init(&(philos[i].mt_me)) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
 

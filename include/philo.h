@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:49:46 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/17 09:39:11 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/17 18:03:48 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
+#include <limits.h>
 
 
 /* Colours used for formatting printf*/
@@ -59,7 +60,7 @@ typedef struct s_config
 	int				sleep_ms;
 	int				eat_reps;
 	int				meal_end;
-	int				all_philo_seated;
+	int				all_seated;
 	pthread_t		*cust;
 	pthread_mutex_t	mt_cfg;
 	pthread_mutex_t	*mt_forks;
@@ -72,25 +73,23 @@ typedef struct s_philo
 {
 	int				p_no;
 	int				full;
-	// last_eat_time
 	int				r_no;
 	int				l_no;
+	int				state;
+	int				eat_times;
+	long			ms_last_eat;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*first_fork;
 	pthread_mutex_t	*second_fork;
-
-	// probably a mutex here to prevent data race with the monitor
-
-	int				state;
-	int				eat_times;
-	t_config		*config;
+	pthread_mutex_t	mt_me;
+	t_config		*cfg;
 }	t_philo;
 
 
 
 /* Initialisation */
-void	init_philos(t_config *cfg, t_philo *philos, int no_phil);
+int		init_philos(t_config *cfg, t_philo *philos, int no_phil);
 int		arise_philos(t_config *cfg);
 int		create_forks(t_config *cfg, pthread_mutex_t *mt_forks, int no_phil);
 
@@ -100,6 +99,8 @@ int		create_forks(t_config *cfg, pthread_mutex_t *mt_forks, int no_phil);
 void	*meal_start(void *data);
 
 
+/* Waiter functions */
+void	*waiter_start(void *data);
 
 
 /* Clean-up functions */
@@ -117,11 +118,14 @@ int		ft_atoi(const char *str);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
+long	checktime(void);
+
 
 /* Mutex utility functions */
-int	mutex_init(pthread_mutex_t *mt);
-int	set_bool(int *bool, int bool_val, pthread_mutex_t *mt);
-int	get_bool(int *bool, pthread_mutex_t *mt);
+int		mutex_init(pthread_mutex_t *mt);
+void	set_bool(int *bool, int bool_val, pthread_mutex_t *mt);
+int		get_bool(int *bool, pthread_mutex_t *mt);
+void	set_long(long *l_nbr, long long_val, pthread_mutex_t *mt);
 
 
 

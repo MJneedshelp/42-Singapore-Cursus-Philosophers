@@ -12,10 +12,14 @@
 
 #include "../include/philo.h"
 
-/* Description: Keeps checking the all_philos_seated member in cfg. Lock and
-   unlock the cfg mutex when reading the member.
+/* Description: Runs a spin lock to check if all the philos are seated at the
+   table. Lock and unlock the cfg mutex when reading all_seated.
 */
-// int	wait_table_set
+void	wait_ready(pthread_mutex_t *mt_cfg, int *all_seated)
+{
+	while (get_bool(all_seated, mt_cfg) != TRUE)
+		;
+}
 
 
 
@@ -23,7 +27,7 @@
    thread is created. Each thread's philo characteristics (philo number, the
    forks the thread has access to, etc.) are passed into the routine function.
    Performs the following actions:
-	1. Each
+	1. Waits for all philos to be seated at the table
 	2. XXXX
 */
 
@@ -31,37 +35,22 @@ void	*meal_start(void *data)
 {
 	t_philo			*me;
 
-	struct timeval	t_time;
-	int				usec_sleep;
+	struct timeval	t_time;				//delete later
+	int				usec_sleep;			//delete later
 
-	usec_sleep = 3000000;
 	me = (t_philo *)data;
+	wait_ready(&(me->cfg->mt_cfg), &(me->cfg->all_seated));
+	
 
-	// wait all philos to arise
+	// set the ms_last_eat
+
+
 	//implement a while loop with either condition 1 or no. of times eaten in each philo routine
 	//1 more thread that just goes around checking if each philo is dead
 	//possibly 1 mutex for each member in the philo struct that the waiter and the philo is changing
 
 
-	// if (gettimeofday(&t_time, NULL) != 0)
-	// {
-	// 	printf("gettimeofday failed\n");
-	// 	//do smth here to handle the case where gettime of day fails
-	// 	//update the philo status within the philo struct
-	// }
-	// printf("%ld %ld is alive!! I am Philo: %d | eat times: %d | cfg addr: %p | r_fork: %d | l_fork: %d\n",
-	// t_time.tv_usec, tid, me->p_no, me->eat_times, me->config, me->r_fork, me->l_fork);
 
-
-	// if (gettimeofday(&t_time, NULL) != 0)
-	// {
-	// 	printf("gettimeofday failed\n");
-	// 	//do smth here to handle the case where gettime of day fails
-	// 	//update the philo status within the philo struct
-	// }
-	// printf("%ld %ld I am Philo: %d | Before forks are picked up\n", t_time.tv_sec, t_time.tv_usec, me->p_no);
-
-	// printf("I am Philo: %d | R_no: %d | R_adr: %p | L_no: %d | L_adr: %p\n", me->p_no, me->r_no, me->r_fork, me->l_no, me->l_fork);
 
 
 	if (pthread_mutex_lock(me->r_fork) != 0)
