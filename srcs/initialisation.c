@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 12:12:44 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/17 12:15:40 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/18 22:39:18 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int	init_philos(t_config *cfg, t_philo *philos, int no_phil)
 	i = 0;
 	while (i < no_phil)
 	{
+		printf("Inside init philos. Philo number: %d | address: %p\n", i + 1, &philos[i]);
+
 		philos[i].cfg = cfg;
 		philos[i].eat_times = 0;
 		philos[i].p_no = i + 1;
@@ -132,7 +134,6 @@ int	create_forks(t_config *cfg, pthread_mutex_t *mt_forks, int no_phil)
 			status = EXIT_FAILURE;
 			break;
 		}
-		printf("Created fork: %d | Address: %p\n", i + 1, &(mt_forks[i]));
 		i++;
 	}
 	if (status != EXIT_SUCCESS)

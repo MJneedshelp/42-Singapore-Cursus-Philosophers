@@ -34,13 +34,20 @@ void	wait_ready(pthread_mutex_t *mt_cfg, int *all_seated)
 void	*meal_start(void *data)
 {
 	t_philo			*me;
+	long			time;
 
 	struct timeval	t_time;				//delete later
-	int				usec_sleep;			//delete later
+	int				usec_sleep = 1000000;			//delete later
 
 	me = (t_philo *)data;
 	wait_ready(&(me->cfg->mt_cfg), &(me->cfg->all_seated));
-	
+
+	//check current time and set last eat time
+	time = checktime();
+	set_long(&(me->ms_last_eat), time, &(me->mt_me));
+	printf("I am philo: %d | last eat time: %ld\n", me->p_no, me->ms_last_eat);
+
+
 
 	// set the ms_last_eat
 

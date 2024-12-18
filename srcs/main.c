@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 11:25:48 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/17 17:47:43 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/18 23:41:27 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	main(int argc, char *argv[])
 	if (init_config(&cfg, argc, argv) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 
-
+	//create all the threads
 	if (arise_philos(&cfg) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 
@@ -87,7 +87,8 @@ int	main(int argc, char *argv[])
 	//set all_philos_seated to TRUE -> rmb to lock mutex and unlock mutex
 	//all the other philos will be checking this var in the cfg
 	set_bool(&(cfg.all_seated), TRUE, &cfg.mt_cfg);
-	printf("All seated? %d\n", cfg.all_seated);
+
+	usleep(1500000);
 
 	pthread_create(&waiter, NULL, waiter_start, &cfg); //create waiter thread, check if creation fails
 

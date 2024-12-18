@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:39:09 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/17 17:46:24 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/18 22:11:50 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,5 @@ long	checktime(void)
 
 	gettimeofday(&tv, NULL);
 	ms = tv.tv_sec * 1000 + tv.tv_usec / 1000;
-
-	printf("================================================================\n");
-	printf("Seconds: %ld | ms: %ld | ms (check): %ld\n", tv.tv_sec, tv.tv_usec, ms);
-	printf("================================================================\n");
 	return (ms);
 }

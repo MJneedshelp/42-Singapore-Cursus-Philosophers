@@ -52,7 +52,7 @@ void	set_long(long *l_nbr, long long_val, pthread_mutex_t *mt)
    variable after. Returns the read value.
 */
 
-int	get_long(long *l_nbr, pthread_mutex_t *mt)
+long	get_long(long *l_nbr, pthread_mutex_t *mt)
 {
 	long	ret;
 
