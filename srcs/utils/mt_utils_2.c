@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:08:26 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/19 09:54:06 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/19 11:40:49 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,5 @@ long	print_status(int p_no, int status, t_philo *me)
 			printf(GREEN"%ld " NORM_WHITE"%d died\n"RESET, now, p_no);
 		pthread_mutex_unlock(&(me->cfg->mt_print));
 	}
+	return (now);
 }

@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 11:25:48 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/19 09:31:31 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/19 17:18:17 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int	main(int argc, char *argv[])
 	//all the other philos will be checking this var in the cfg
 	set_bool(&(cfg.all_seated), TRUE, &cfg.mt_cfg);
 
-	usleep(1500000);
 
 	pthread_create(&waiter, NULL, waiter_start, &cfg); //create waiter thread, check if creation fails
 
@@ -104,9 +103,17 @@ int	main(int argc, char *argv[])
 
 
 
-
+	pthread_join(waiter, NULL);
 	join_philos(cfg.cust, cfg.no_phil);
-	//join waiter back
+	// destroy_mutex_array(cfg.philos, cfg.no_phil);
+	// pthread_mutex_destroy(cfg.m)
+	// rmb to destroy the other mutex
+	// mt_cfg
+	// mt_print
+	// mt_me in each philo struct
+	//
+
+
 	dishwasher(&cfg);
 
 

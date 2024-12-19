@@ -82,7 +82,7 @@ int	main(void)
 
 
 	//Destroy mutex
-	pthread_mutex_destroy(&count.ct_mutex);
+	// pthread_mutex_destroy(&count.ct_mutex);
 
 	return (0);
 }

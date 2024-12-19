@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 09:14:02 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/19 09:44:51 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/19 12:06:00 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	*waiter_start(void *data)
 			&(curr_philo->mt_me)) > (long)(cfg->die_ms))
 			{
 				set_bool(&(cfg->meal_end), TRUE, &(cfg->mt_cfg));
+				print_status(ctr % cfg->no_phil, DEAD, curr_philo);
 				break;
 			}
 		}

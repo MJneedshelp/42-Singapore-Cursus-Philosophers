@@ -39,21 +39,24 @@ void	wait_ready(pthread_mutex_t *mt_cfg, int *all_seated)
 void	eat(t_philo *me)
 {
 	long	eat_start;
+	long	eat_times;
+	int		eat_reps;
 
+	eat_reps = me->cfg->eat_reps;
 	pthread_mutex_lock(me->first_fork);
 	pthread_mutex_lock(me->second_fork);
 	eat_start = print_status(me->p_no, EATING, me);
 	set_long(&(me->ms_last_eat), eat_start, &(me->mt_me));
 	usleep(me->cfg->eat_ms * 1000);
-
-
-
-
-
-
-
-
 	pthread_mutex_unlock(me->first_fork);
+	pthread_mutex_unlock(me->second_fork);
+	if (eat_reps != -1)
+	{
+		eat_times = get_long(&(me->eat_times), &(me->mt_me));
+		set_long(&(me->eat_times), eat_times + 1, &(me->mt_me));
+		if (eat_times + 1 == eat_reps)
+			set_bool(&(me->full), TRUE, &(me->mt_me));
+	}
 }
 
 
@@ -71,9 +74,6 @@ void	*meal_start(void *data)
 	t_philo			*me;
 	long			time;
 
-	struct timeval	t_time;				//delete later
-	int				usec_sleep = 1000000;			//delete later
-
 	me = (t_philo *)data;
 	wait_ready(&(me->cfg->mt_cfg), &(me->cfg->all_seated));
 
@@ -90,70 +90,14 @@ void	*meal_start(void *data)
 			break;
 
 		//2. Eat
-		//pick up both forks and then usleep eat time
+		eat(me);
 
 		//3. Sleep
 		print_status(me->p_no, SLEEPING, me);
 		usleep(me->cfg->sleep_ms * 1000);
 
 		//4. Think
-
-
-
+		print_status(me->p_no, THINKING, me);
 	}
-
-
-
-
-
-	//implement a while loop with either condition 1 or no. of times eaten in each philo routine
-	//1 more thread that just goes around checking if each philo is dead
-	//possibly 1 mutex for each member in the philo struct that the waiter and the philo is changing
-
-
-
-
-
-	if (pthread_mutex_lock(me->r_fork) != 0)
-		printf("p no: %d | Failed to pick up right fork: %d\n", me->p_no, me->r_no);
-
-	if (gettimeofday(&t_time, NULL) != 0)
-	{
-		printf("gettimeofday failed\n");
-		//do smth here to handle the case where gettime of day fails
-		//update the philo status within the philo struct
-	}
-	printf("%ld %ld I am Philo: %d | picked up the r_fork: %d\n", t_time.tv_sec, t_time.tv_usec, me->p_no, me->r_no);
-
-	if (pthread_mutex_lock(me->l_fork) != 0)
-		printf("p no: %d | Failed to pick up left fork: %d\n", me->p_no, me->l_no);
-
-	if (gettimeofday(&t_time, NULL) != 0)
-	{
-		printf("gettimeofday failed\n");
-		//do smth here to handle the case where gettime of day fails
-		//update the philo status within the philo struct
-	}
-	printf("%ld %ld I am Philo: %d | picked up the l_fork: %d\n", t_time.tv_sec, t_time.tv_usec, me->p_no, me->l_no);
-
-	usleep(usec_sleep);
-
-	pthread_mutex_unlock(me->l_fork);
-	pthread_mutex_unlock(me->r_fork);
-
-	if (gettimeofday(&t_time, NULL) != 0)
-	{
-		printf("gettimeofday failed\n");
-		//do smth here to handle the case where gettime of day fails
-		//update the philo status within the philo struct
-	}
-	printf("%ld %ld I am Philo: %d | slept for usec: %d | unlocked both locks\n", t_time.tv_sec, t_time.tv_usec, me->p_no, usec_sleep);
-
-
-
-
-
-
-
 	return (NULL);
 }

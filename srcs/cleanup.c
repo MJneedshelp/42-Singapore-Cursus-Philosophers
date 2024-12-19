@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 19:05:55 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/13 00:54:19 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/19 12:07:44 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 */
 void	dishwasher(t_config *cfg)
 {
+	//mutex destroy all the initialised mutex
+
 	if (cfg->cust != NULL)
 		free (cfg->cust);
 	if (cfg->mt_forks != NULL)
