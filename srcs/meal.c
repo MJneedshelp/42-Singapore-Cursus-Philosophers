@@ -48,8 +48,23 @@ void	*meal_start(void *data)
 	printf("I am philo: %d | last eat time: %ld\n", me->p_no, me->ms_last_eat);
 
 
+	while (get_bool(&(me->cfg->meal_end), &(me->cfg->mt_cfg)) != TRUE)
+	{
+		//1. check if philo full. Break out of while loop if full
 
-	// set the ms_last_eat
+		//2. Eat
+		//pick up both forks and then usleep eat time
+
+		//3. Sleep
+
+		//4. Think
+
+
+
+	}
+
+
+
 
 
 	//implement a while loop with either condition 1 or no. of times eaten in each philo routine

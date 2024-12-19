@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 11:25:48 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/18 23:41:27 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/19 06:04:49 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,14 +98,6 @@ int	main(int argc, char *argv[])
 
 
 
-	// i = 0;
-	// while (i < cfg.no_phil)
-	// {
-	// 	printf("Philo: %d | eat times: %d | cfg addr: %p | r_fork: %p | l_fork: %p\n",
-	// 	(&cfg.philos[i])->p_no, (&cfg.philos[i])->eat_times, (&cfg.philos[i])->config, (&cfg.philos[i])->r_fork, (&cfg.philos[i])->l_fork);
-	// 	i++;
-	// }
-
 
 
 
@@ -116,6 +108,7 @@ int	main(int argc, char *argv[])
 
 
 	join_philos(cfg.cust, cfg.no_phil);
+	//join waiter back
 	dishwasher(&cfg);
 
 

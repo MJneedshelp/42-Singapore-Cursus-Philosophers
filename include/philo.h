@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:49:46 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/18 22:52:26 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/19 08:50:26 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@
 #define RED "\033[0;31m"
 #define GREEN "\033[0;32m"
 #define BLUE "\033[0;34m"
+#define YELLOW "\033[0;93m"
+#define PURPLE "\033[0;95m"
+#define NORM_WHITE "\033[0;37m"
+#define BRIGHT_WHITE "\033[0;97m"
 #define RESET "\033[0m"
 
 /* Forward declare s_config and s_philo as they will be referencing
@@ -42,9 +46,11 @@ enum	e_bool
 
 enum	e_state
 {
-	EAT,
-	THINK,
-	SLEEP,
+	EATING,
+	THINKING,
+	SLEEPING,
+	GRAB_FIRST_FORK,
+	GRAB_SECOND_FORK,
 	DEAD
 };
 
@@ -63,7 +69,9 @@ typedef struct s_config
 	int				all_seated;
 	pthread_t		*cust;
 	pthread_mutex_t	mt_cfg;
+	pthread_mutex_t	mt_print;
 	pthread_mutex_t	*mt_forks;
+	//another mutex for philos to pick up before they can printf
 	t_philo			*philos;
 }	t_config;
 
