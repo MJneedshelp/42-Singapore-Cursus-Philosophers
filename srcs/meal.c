@@ -22,8 +22,8 @@ void	wait_ready(pthread_mutex_t *mt_cfg, int *all_seated)
 }
 
 /* Description: Sequence of events for eating:
-	1. Pick up first fork
-	2. Pick up second fork
+	1. Pick up first fork - print status
+	2. Pick up second fork - print status
 	3. print status: EATING
 	4. Update ms_last_eat - locking required since me.ms_last_eat is checked
 	   by the waiter
@@ -44,7 +44,9 @@ void	eat(t_philo *me)
 
 	eat_reps = me->cfg->eat_reps;
 	pthread_mutex_lock(me->first_fork);
+	print_status(me->p_no, GRAB_FIRST_FORK, me);
 	pthread_mutex_lock(me->second_fork);
+	print_status(me->p_no, GRAB_SECOND_FORK, me);
 	eat_start = print_status(me->p_no, EATING, me);
 	set_long(&(me->ms_last_eat), eat_start, &(me->mt_me));
 	usleep(me->cfg->eat_ms * 1000);
@@ -99,5 +101,6 @@ void	*meal_start(void *data)
 		//4. Think
 		print_status(me->p_no, THINKING, me);
 	}
+	printf("philo: %d | Done eating and breaking out of while loop\n", me->p_no);
 	return (NULL);
 }

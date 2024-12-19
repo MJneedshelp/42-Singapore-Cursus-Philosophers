@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:08:26 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/19 11:40:49 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/19 17:33:19 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ long	print_status(int p_no, int status, t_philo *me)
 
 	now = checktime();
 	//Might want to add something for debugging, especially the fork number for 1st and 2nd fork
+	//might want to keep only the last few digits for the timestamp rather than printing out the whole chunk
 	if (get_bool(&(me->cfg->meal_end), &(me->cfg->mt_cfg)) != TRUE)
 	{
 		pthread_mutex_lock(&(me->cfg->mt_print));

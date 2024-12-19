@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 19:05:55 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/19 12:07:44 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/19 17:59:08 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 /* Description: Frees all the memory allocated in the config data structure.
    Members to free (SO FAR):
+	- cfg->bill
 	- cfg->cust
 	- cfg->mt_forks
 	- cfg->philos
@@ -22,12 +23,15 @@ void	dishwasher(t_config *cfg)
 {
 	//mutex destroy all the initialised mutex
 
+	if (cfg->bill != NULL)
+		free (cfg->bill);
 	if (cfg->cust != NULL)
 		free (cfg->cust);
 	if (cfg->mt_forks != NULL)
 		free (cfg->mt_forks);
 	if (cfg->philos != NULL)
 		free (cfg->philos);
+	cfg->bill = NULL;
 	cfg->cust = NULL;
 	cfg->mt_forks = NULL;
 	cfg->philos = NULL;

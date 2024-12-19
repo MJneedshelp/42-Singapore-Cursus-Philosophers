@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:49:46 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/19 17:17:49 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/19 17:55:09 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ enum	e_state
 typedef struct s_config
 {
 	int				no_phil;
+	int				*bill;	//array of ints to store TRUE / FALSE for each philo who is full. Meal ends when all philos are full -> all array cells are marked as TRUE
 	int				die_ms;
 	int				eat_ms;
 	int				sleep_ms;

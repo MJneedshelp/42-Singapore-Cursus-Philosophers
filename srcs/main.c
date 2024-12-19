@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 11:25:48 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/19 17:18:17 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/19 17:58:32 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,12 @@ int	init_config(t_config *cfg, int argc, char *argv[])
 		return (EXIT_FAILURE);
 	if (mutex_init(&(cfg->mt_print)) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-
+	cfg->bill = (int *)malloc(cfg->no_phil * sizeof(int));	//rmb to set all to FALSE
 	cfg->cust = (pthread_t *)malloc(cfg->no_phil * sizeof(pthread_t));
 	cfg->mt_forks = (pthread_mutex_t *)malloc(cfg->no_phil * sizeof(pthread_mutex_t));
 	cfg->philos = (t_philo *)malloc(cfg->no_phil * sizeof(t_philo));
-	if (cfg->mt_forks == NULL || cfg->cust == NULL || cfg->philos == NULL)
+	if (cfg->bill == NULL || cfg->cust == NULL || \
+	cfg->mt_forks == NULL || cfg->philos == NULL)
 	{
 		dishwasher(cfg);
 		return (EXIT_FAILURE);
@@ -105,6 +106,9 @@ int	main(int argc, char *argv[])
 
 	pthread_join(waiter, NULL);
 	join_philos(cfg.cust, cfg.no_phil);
+	printf("All players joined\n");
+
+
 	// destroy_mutex_array(cfg.philos, cfg.no_phil);
 	// pthread_mutex_destroy(cfg.m)
 	// rmb to destroy the other mutex
