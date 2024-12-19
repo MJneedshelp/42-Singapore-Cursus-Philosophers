@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 09:14:02 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/19 18:09:54 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/20 02:12:49 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,12 @@ int	all_bill(int no_phil, int *bill)
 void	*waiter_start(void *data)
 {
 	t_config		*cfg;
-	int				meal_end;
 	unsigned int	ctr;
 	t_philo			*curr_philo;
 
 	cfg = (t_config *)data;
-	meal_end = get_bool(&(cfg->meal_end), &(cfg->mt_cfg));
 	ctr = cfg->no_phil - 1;
-	while (meal_end != TRUE)
+	while (get_bool(&(cfg->meal_end), &(cfg->mt_cfg)) != TRUE)
 	{
 		curr_philo = &(cfg->philos[ctr % cfg->no_phil]);
 		if (get_bool(&(curr_philo->full), &(curr_philo->mt_me)) != TRUE)
@@ -68,23 +66,18 @@ void	*waiter_start(void *data)
 			if (checktime() - get_long(&(curr_philo->ms_last_eat),
 			&(curr_philo->mt_me)) > (long)(cfg->die_ms))
 			{
+				print_status((ctr % cfg->no_phil) + 1, DEAD, curr_philo, DEBUG);
 				set_bool(&(cfg->meal_end), TRUE, &(cfg->mt_cfg));
-				print_status(ctr % cfg->no_phil, DEAD, curr_philo);
 				break;
 			}
 		}
 		else
 			cfg->bill[ctr % cfg->no_phil] = TRUE;
-
-
-
-		//check if all philos are full as well
-
-
+		if (all_bill(cfg->no_phil, cfg->bill) == TRUE)
+			set_bool(&(cfg->meal_end), TRUE, &(cfg->mt_cfg));
 		ctr++;
 		if (ctr == 0)
 			ctr = cfg->no_phil - 1;
 	}
-	printf("Waiter broke out of while loop\n");
 	return (NULL);
 }

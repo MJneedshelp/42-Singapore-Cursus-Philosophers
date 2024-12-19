@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialisation.c                                   :+:      :+:    :+:   */
+/*   initialisation_1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 12:12:44 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/19 00:19:51 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/20 03:24:32 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ int	init_philos(t_config *cfg, t_philo *philos, int no_phil)
 	i = 0;
 	while (i < no_phil)
 	{
-		printf("Inside init philos. Philo number: %d | address: %p\n", i + 1, &philos[i]);
-
 		philos[i].cfg = cfg;
 		philos[i].eat_times = 0;
 		philos[i].p_no = i + 1;
@@ -72,11 +70,11 @@ int	init_philos(t_config *cfg, t_philo *philos, int no_phil)
 			philos[i].l_fork = &(cfg->mt_forks[i - 1]);
 			philos[i].l_no = i - 1;
 		}
+		if (mutex_init(&(philos[i].mt_me)) != EXIT_SUCCESS)	//handle the case where the mutex init fails. Destroy all the created mutex
+			return (EXIT_FAILURE);
 		i++;
 	}
 	assign_forks(philos, no_phil);
-	if (mutex_init(&(philos[i].mt_me)) != EXIT_SUCCESS)
-		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
@@ -110,6 +108,7 @@ int	arise_philos(t_config *cfg)
 	if (status != EXIT_SUCCESS)
 	{
 		join_philos(cfg->cust, i);
+		destroy_all_mutex(cfg);
 		dishwasher(cfg);
 	}
 	return (status);
@@ -138,7 +137,7 @@ int	create_forks(t_config *cfg, pthread_mutex_t *mt_forks, int no_phil)
 	}
 	if (status != EXIT_SUCCESS)
 	{
-		destroy_mutex_array(mt_forks, i);
+		destroy_forks_mutex(mt_forks, i);
 		dishwasher(cfg);
 	}
 	return (status);

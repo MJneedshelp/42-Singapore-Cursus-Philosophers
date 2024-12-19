@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:49:46 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/19 17:55:09 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/20 02:37:51 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,11 @@
 #define YELLOW "\033[0;93m"
 #define PURPLE "\033[0;95m"
 #define NORM_WHITE "\033[0;37m"
-#define BRIGHT_WHITE "\033[0;97m"
+#define WHITE "\033[0;97m"
 #define RESET "\033[0m"
+
+/* Debug flag */
+#define DEBUG 24
 
 /* Forward declare s_config and s_philo as they will be referencing
    each other */
@@ -61,7 +64,7 @@ enum	e_state
 typedef struct s_config
 {
 	int				no_phil;
-	int				*bill;	//array of ints to store TRUE / FALSE for each philo who is full. Meal ends when all philos are full -> all array cells are marked as TRUE
+	int				*bill;
 	int				die_ms;
 	int				eat_ms;
 	int				sleep_ms;
@@ -99,6 +102,8 @@ typedef struct s_philo
 int		init_philos(t_config *cfg, t_philo *philos, int no_phil);
 int		arise_philos(t_config *cfg);
 int		create_forks(t_config *cfg, pthread_mutex_t *mt_forks, int no_phil);
+int		init_config(t_config *cfg, int argc, char *argv[]);
+
 
 
 
@@ -112,7 +117,9 @@ void	*waiter_start(void *data);
 
 /* Clean-up functions */
 void	join_philos(pthread_t *cust, int num);
-void	destroy_mutex_array(pthread_mutex_t *mt_arr, int n);
+void	destroy_forks_mutex(pthread_mutex_t *mt_arr, int n);
+void	destroy_philo_mutex(t_philo *philos, int n);
+void	destroy_all_mutex(t_config *cfg);
 void	dishwasher(t_config *config);
 
 
@@ -126,7 +133,7 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 long	checktime(void);
-long	print_status(int p_no, int status, t_philo *me);
+long	print_status(int p_no, int status, t_philo *me, int debug);
 
 
 

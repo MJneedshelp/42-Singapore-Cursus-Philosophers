@@ -6,7 +6,7 @@
 #    By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/15 22:10:59 by mintan            #+#    #+#              #
-#    Updated: 2024/12/19 11:46:24 by mintan           ###   ########.fr        #
+#    Updated: 2024/12/20 03:21:13 by mintan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,8 @@ CFLAGS = -Wall -Werror -Wextra -pthread -fsanitize=thread
 # Definitions
 NAME = philo
 SRCDIR = srcs
-RELATIVE_SRCS = main.c initialisation.c meal.c waiter.c cleanup.c \
-/utils/ft_atoi.c /utils/ft_putchar_fd.c /utils/ft_strlen.c \
+RELATIVE_SRCS = main.c initialisation_1.c initialisation_2.c meal.c waiter.c \
+cleanup.c /utils/ft_atoi.c /utils/ft_putchar_fd.c /utils/ft_strlen.c \
 /utils/ft_putendl_fd.c /utils/ft_putstr_fd.c /utils/mt_utils_1.c \
 /utils/mt_utils_2.c /utils/gettime_utils.c
 

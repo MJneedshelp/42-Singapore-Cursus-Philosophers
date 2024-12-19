@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 19:05:55 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/19 17:59:08 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/20 01:10:45 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 */
 void	dishwasher(t_config *cfg)
 {
-	//mutex destroy all the initialised mutex
-
 	if (cfg->bill != NULL)
 		free (cfg->bill);
 	if (cfg->cust != NULL)
@@ -36,7 +34,6 @@ void	dishwasher(t_config *cfg)
 	cfg->mt_forks = NULL;
 	cfg->philos = NULL;
 }
-
 
 /* Description: joins all the created philo threads. This function is used
    at the start during the thread creation, when pthread_create fails, or
@@ -60,7 +57,7 @@ void	join_philos(pthread_t *cust, int num)
    Iterates n times through the array of pthread_mutex_t objects and destroys
    each mutex object.
 */
-void	destroy_mutex_array(pthread_mutex_t *mt_arr, int n)
+void	destroy_forks_mutex(pthread_mutex_t *mt_arr, int n)
 {
 	int i;
 
@@ -70,4 +67,34 @@ void	destroy_mutex_array(pthread_mutex_t *mt_arr, int n)
 		pthread_mutex_destroy(&(mt_arr[i]));
 		i++;
 	}
+}
+
+/* Description: Destroys the mutex in each of of the philo structures.
+*/
+
+void	destroy_philo_mutex(t_philo *philos, int n)
+{
+	int	i;
+
+	i = 0;
+	while (i < n)
+	{
+		pthread_mutex_destroy(&(philos[i].mt_me));
+		i++;
+	}
+}
+
+/* Description: Destroys all the mutex used in the programme:
+	1. Destroys all the fork mutex
+	2. Destroys all the philo mutex
+	3. Destroys mt_cfg
+	4. Destroys mt_print
+*/
+
+void	destroy_all_mutex(t_config *cfg)
+{
+	destroy_forks_mutex(cfg->mt_forks, cfg->no_phil);
+	destroy_philo_mutex(cfg->philos, cfg->no_phil);
+	pthread_mutex_destroy(&(cfg->mt_cfg));
+	pthread_mutex_destroy(&(cfg->mt_print));
 }

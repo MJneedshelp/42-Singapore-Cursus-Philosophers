@@ -44,10 +44,10 @@ void	eat(t_philo *me)
 
 	eat_reps = me->cfg->eat_reps;
 	pthread_mutex_lock(me->first_fork);
-	print_status(me->p_no, GRAB_FIRST_FORK, me);
+	print_status(me->p_no, GRAB_FIRST_FORK, me, DEBUG);
 	pthread_mutex_lock(me->second_fork);
-	print_status(me->p_no, GRAB_SECOND_FORK, me);
-	eat_start = print_status(me->p_no, EATING, me);
+	print_status(me->p_no, GRAB_SECOND_FORK, me, DEBUG);
+	eat_start = print_status(me->p_no, EATING, me, DEBUG);
 	set_long(&(me->ms_last_eat), eat_start, &(me->mt_me));
 	usleep(me->cfg->eat_ms * 1000);
 	pthread_mutex_unlock(me->first_fork);
@@ -95,11 +95,11 @@ void	*meal_start(void *data)
 		eat(me);
 
 		//3. Sleep
-		print_status(me->p_no, SLEEPING, me);
+		print_status(me->p_no, SLEEPING, me, DEBUG);
 		usleep(me->cfg->sleep_ms * 1000);
 
 		//4. Think
-		print_status(me->p_no, THINKING, me);
+		print_status(me->p_no, THINKING, me, DEBUG);
 	}
 	printf("philo: %d | Done eating and breaking out of while loop\n", me->p_no);
 	return (NULL);
