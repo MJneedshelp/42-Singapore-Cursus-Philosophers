@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:08:26 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/19 08:57:06 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/19 09:54:06 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 /* Description: Takes in the philo number, the status and the philo struct.
    Checks if the meal has ended. If meal is still ongoing, locks the mt_print
-   before printing the status messages. Unlocks mt_print after.
+   before printing the status messages. Unlocks mt_print after. Returns
 */
 
-void	print_status(int p_no, int status, t_philo *me)
+long	print_status(int p_no, int status, t_philo *me)
 {
 	long	now;
 

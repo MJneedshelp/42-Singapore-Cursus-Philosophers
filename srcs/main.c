@@ -6,17 +6,11 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 11:25:48 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/19 06:04:49 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/19 09:31:31 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-
-/* Description: Sets the all_philos_seated member to TRUE
-*/
-
-
-
 
 /* Description: Initialises all the input
    XXXXX EXPLAIN ALL THE DIFFERENT MEMBERS IN YOUR STRUCT PLS
@@ -37,7 +31,11 @@ int	init_config(t_config *cfg, int argc, char *argv[])
 	cfg->all_seated = FALSE;
 	cfg->meal_end = FALSE;
 
+
+	//might wanna group these mutex tgt in an array, especially if there are more mutexes. Can ENUM the mt type to access it
 	if (mutex_init(&(cfg->mt_cfg)) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	if (mutex_init(&(cfg->mt_print)) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 
 	cfg->cust = (pthread_t *)malloc(cfg->no_phil * sizeof(pthread_t));

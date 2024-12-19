@@ -21,6 +21,41 @@ void	wait_ready(pthread_mutex_t *mt_cfg, int *all_seated)
 		;
 }
 
+/* Description: Sequence of events for eating:
+	1. Pick up first fork
+	2. Pick up second fork
+	3. print status: EATING
+	4. Update ms_last_eat - locking required since me.ms_last_eat is checked
+	   by the waiter
+	5. Eat - usleep(ms_eat)
+	6. Drop first fork
+	7. Drop second fork
+	8. Increment eat_times - done outside of lock since this variable is only
+	   accessed by me
+	9. Set full to TRUE if I have eaten enough - locking required since me.full
+	   is checked by the waiter
+*/
+
+void	eat(t_philo *me)
+{
+	long	eat_start;
+
+	pthread_mutex_lock(me->first_fork);
+	pthread_mutex_lock(me->second_fork);
+	eat_start = print_status(me->p_no, EATING, me);
+	set_long(&(me->ms_last_eat), eat_start, &(me->mt_me));
+	usleep(me->cfg->eat_ms * 1000);
+
+
+
+
+
+
+
+
+	pthread_mutex_unlock(me->first_fork);
+}
+
 
 
 /* Description: The routine function called by each philo thread when each
@@ -51,11 +86,15 @@ void	*meal_start(void *data)
 	while (get_bool(&(me->cfg->meal_end), &(me->cfg->mt_cfg)) != TRUE)
 	{
 		//1. check if philo full. Break out of while loop if full
+		if (me->full == TRUE)
+			break;
 
 		//2. Eat
 		//pick up both forks and then usleep eat time
 
 		//3. Sleep
+		print_status(me->p_no, SLEEPING, me);
+		usleep(me->cfg->sleep_ms * 1000);
 
 		//4. Think
 

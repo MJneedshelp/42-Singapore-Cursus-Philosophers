@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:49:46 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/19 08:50:26 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/19 09:54:18 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ typedef struct s_config
 	pthread_mutex_t	mt_cfg;
 	pthread_mutex_t	mt_print;
 	pthread_mutex_t	*mt_forks;
-	//another mutex for philos to pick up before they can printf
 	t_philo			*philos;
 }	t_config;
 
@@ -83,7 +82,7 @@ typedef struct s_philo
 	int				full;
 	int				r_no;
 	int				l_no;
-	int				state;
+	// int				state;
 	int				eat_times;
 	long			ms_last_eat;
 	pthread_mutex_t	*r_fork;
@@ -127,6 +126,8 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 long	checktime(void);
+long	print_status(int p_no, int status, t_philo *me);
+
 
 
 /* Mutex utility functions */
