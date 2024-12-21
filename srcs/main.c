@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 11:25:48 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/21 10:21:59 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/21 17:58:31 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	main(int argc, char *argv[])
 	//all the other philos will be checking this var in the cfg
 	set_bool(&(cfg.all_seated), TRUE, &cfg.mt_cfg);
 
+	// printf("sleep 50 usec before waiter starts\n");
 
 	pthread_create(&waiter, NULL, waiter_start, &cfg); //create waiter thread, check if creation fails
 	pthread_join(waiter, NULL);

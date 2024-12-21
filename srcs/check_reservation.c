@@ -12,24 +12,29 @@
 
 #include "../include/philo.h"
 
-/* Description: prints the error message for wrong number of arguments */
-void	print_err_no_arg(void)
+/* Description: prints different types of error messages and prints an example
+   for the user at the end
+*/
+void	print_err(int type)
 {
-	ft_putstr_fd(ERR_NO_ARG_1, STDERR_FILENO);
-	ft_putstr_fd(ERR_NO_ARG_2, STDERR_FILENO);
-	ft_putendl_fd(ERR_NO_ARG_3, STDERR_FILENO);
-	ft_putendl_fd(ERR_NO_ARG_4, STDERR_FILENO);
-	ft_putendl_fd(ERR_NO_ARG_5, STDERR_FILENO);
+	if (type == ERR_NO_ARGS)
+	{
+		ft_putstr_fd(ERR_NO_ARG_1, STDERR_FILENO);
+		ft_putstr_fd(ERR_NO_ARG_2, STDERR_FILENO);
+		ft_putendl_fd(ERR_NO_ARG_3, STDERR_FILENO);
+	}
+	else if (type == ERR_ARG_NUMERIC)
+		ft_putendl_fd(ERR_ARG_NUMERIC_1, STDERR_FILENO);
+	ft_putendl_fd(ERR_EG_1, STDERR_FILENO);
+	ft_putendl_fd(ERR_EG_2, STDERR_FILENO);
 }
 
-
-	/* Description: Takes in a string and checks if all characters are digits.
-   - Allows for ' ', '\t', '\r', at the start of the string.
-   - Allows for either 1 '+' or '-' after the spaces, before the digits
-   - return:
-		- TRUE: the string is numeric
-		- FALSE: the string is not numeric
-   */
+/* Description: Takes in a string and checks if all characters are digits.
+- Allows for ' ', '\t', '\r', at the start of the string.
+- return:
+	- TRUE: the string is numeric
+	- FALSE: the string is not numeric
+*/
 
 int	check_numeric(char *str)
 {
@@ -37,8 +42,6 @@ int	check_numeric(char *str)
 
 	i = 0;
 	while ((str[i] >= '\t' && str[i] <= '\r') || str[i] == ' ')
-		i++;
-	if (str[i] == '+' || str[i] == '-')
 		i++;
 	while (str[i] != '\0')
 	{
@@ -49,32 +52,28 @@ int	check_numeric(char *str)
 	return (TRUE);
 }
 
-
-// things to check for
-// correct number of arguments
-// check digits
-// might wanna check max number of threads created
+/* Description: performs input validation. Checks the following:
+	1. Correct number of arguments: 5 or 6
+	2. Each argument is are digits
+	3. Handle case of 1 philo
+	4. Max threads??
+*/
 
 int	input_validation(int argc, char *argv[])
 {
-	if (argc != 5 || argc != 6)
+	if (argc != 5 && argc != 6)
 	{
-		print_err_no_arg();
+		print_err(ERR_NO_ARGS);
 		return (EXIT_FAILURE);
 	}
 	while (argc > 1)
 	{
 		if (check_numeric(argv[argc - 1]) == FALSE)
 		{
-			print_err_no_arg();
+			print_err(ERR_ARG_NUMERIC);
 			return (EXIT_FAILURE);
 		}
-
-
-
-
+		argc--;
 	}
-	if (argv[0] == NULL)
-		printf("test");
 	return (EXIT_SUCCESS);
 }

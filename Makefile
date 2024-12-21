@@ -6,13 +6,13 @@
 #    By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/15 22:10:59 by mintan            #+#    #+#              #
-#    Updated: 2024/12/21 10:23:33 by mintan           ###   ########.fr        #
+#    Updated: 2024/12/21 15:09:08 by mintan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Compiler + compile flags
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -pthread -fsanitize=thread
+CFLAGS = -Wall -Werror -Wextra -pthread -fsanitize=address -g
 
 
 # Definitions

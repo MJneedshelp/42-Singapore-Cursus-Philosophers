@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:08:26 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/20 02:18:39 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/21 17:56:20 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,8 @@
    fork number for troubleshooting.
 */
 
-void	print_debug(int p_no, int status, t_philo *me, long now)
+void	print_debug(int p_no, int status, long now)
 {
-	pthread_mutex_lock(&(me->cfg->mt_print));
 	if (status == GRAB_FIRST_FORK)
 		printf(GREEN"%ld " RED"%d picked up 1st fork\n"RESET, now, p_no);
 	else if (status == GRAB_SECOND_FORK)
@@ -31,7 +30,6 @@ void	print_debug(int p_no, int status, t_philo *me, long now)
 		printf(GREEN"%ld " YELLOW"%d is thinking\n"RESET, now, p_no);
 	else if (status == DEAD)
 		printf(GREEN"%ld " NORM_WHITE"%d died\n"RESET, now, p_no);
-	pthread_mutex_unlock(&(me->cfg->mt_print));
 }
 
 /* Description: Takes in the philo number, the status and the philo struct.
@@ -44,14 +42,14 @@ long	print_status(int p_no, int status, t_philo *me, int debug)
 {
 	long	now;
 
+	pthread_mutex_lock(&(me->cfg->mt_print));
 	now = checktime();
 	if (get_bool(&(me->cfg->meal_end), &(me->cfg->mt_cfg)) != TRUE)
 	{
 		if (debug == TRUE)
-			print_debug(p_no, status, me, now);
+			print_debug(p_no, status, now);
 		else
 		{
-			pthread_mutex_lock(&(me->cfg->mt_print));
 			if (status == GRAB_FIRST_FORK || status == GRAB_SECOND_FORK)
 				printf(GREEN"%ld " RED"%d has taken a fork\n"RESET, now, p_no);
 			else if (status == EATING)
@@ -61,9 +59,12 @@ long	print_status(int p_no, int status, t_philo *me, int debug)
 			else if (status == THINKING)
 				printf(GREEN"%ld " YELLOW"%d is thinking\n"RESET, now, p_no);
 			else if (status == DEAD)
+			{
+				set_bool(&(me->cfg->meal_end), TRUE, &(me->cfg->mt_cfg));
 				printf(GREEN"%ld " NORM_WHITE"%d died\n"RESET, now, p_no);
-			pthread_mutex_unlock(&(me->cfg->mt_print));
+			}
 		}
 	}
+	pthread_mutex_unlock(&(me->cfg->mt_print));
 	return (now);
 }

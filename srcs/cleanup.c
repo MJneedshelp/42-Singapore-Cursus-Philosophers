@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 19:05:55 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/21 08:10:57 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/21 11:51:09 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	join_philos(pthread_t *cust, int num)
    Iterates n times through the array of pthread_mutex_t objects and destroys
    each mutex object.
 */
+
 void	destroy_forks_mutex(pthread_mutex_t *mt_arr, int n)
 {
 	int i;

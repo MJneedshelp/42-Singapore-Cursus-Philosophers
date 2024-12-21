@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 09:14:02 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/20 02:12:49 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/21 16:58:45 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ void	*waiter_start(void *data)
 	t_config		*cfg;
 	unsigned int	ctr;
 	t_philo			*curr_philo;
+	// long			dur;
 
+	usleep(500);
 	cfg = (t_config *)data;
 	ctr = cfg->no_phil - 1;
 	while (get_bool(&(cfg->meal_end), &(cfg->mt_cfg)) != TRUE)
@@ -63,11 +65,15 @@ void	*waiter_start(void *data)
 		curr_philo = &(cfg->philos[ctr % cfg->no_phil]);
 		if (get_bool(&(curr_philo->full), &(curr_philo->mt_me)) != TRUE)
 		{
-			if (checktime() - get_long(&(curr_philo->ms_last_eat),
+			// dur = checktime() - get_long(&(curr_philo->ms_last_eat), &(curr_philo->mt_me));
+			// printf("Dur: %ld\n", dur);
+
+			if (checktime() - get_long(&(curr_philo->ms_last_eat), \
 			&(curr_philo->mt_me)) > (long)(cfg->die_ms))
+			// if (dur > (long)(cfg->die_ms))
 			{
 				print_status((ctr % cfg->no_phil) + 1, DEAD, curr_philo, DEBUG);
-				set_bool(&(cfg->meal_end), TRUE, &(cfg->mt_cfg));
+				// set_bool(&(cfg->meal_end), TRUE, &(cfg->mt_cfg));
 				break;
 			}
 		}
@@ -79,5 +85,6 @@ void	*waiter_start(void *data)
 		if (ctr == 0)
 			ctr = cfg->no_phil - 1;
 	}
+	// printf("Waiter routine finished\n");
 	return (NULL);
 }

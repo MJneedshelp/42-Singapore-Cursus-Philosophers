@@ -79,20 +79,47 @@ void	*meal_start(void *data)
 	me = (t_philo *)data;
 	wait_ready(&(me->cfg->mt_cfg), &(me->cfg->all_seated));
 
+
+
 	//check current time and set last eat time
 	time = checktime();
 	set_long(&(me->ms_last_eat), time, &(me->mt_me));
-	printf("I am philo: %d | last eat time: %ld\n", me->p_no, me->ms_last_eat);
 
+	// printf("I am %d and my last eat time is %ld\n", me->p_no, time);
 
-	while (get_bool(&(me->cfg->meal_end), &(me->cfg->mt_cfg)) != TRUE)
+	if (me->p_no % 2 == 0 || (me->cfg->no_phil % 2 != 0 && me->p_no == me->cfg->no_phil))
 	{
-		//1. check if philo full. Break out of while loop if full
-		if (me->full == TRUE)
+		print_status(me->p_no, SLEEPING, me, DEBUG);
+		usleep(me->cfg->sleep_ms * 1000);
+		print_status(me->p_no, THINKING, me, DEBUG);
+
+	}
+	// else
+	// {
+	// 	if (me->cfg->no_phil % 2 != 0 && me->p_no == me->cfg->no_phil)
+	// 		print_status(me->p_no, THINKING, me, DEBUG);
+	// }
+
+
+
+
+	//try if I'm the last person and there's an odd number of philos then sleep first
+	// if ((me->cfg->no_phil % 2 != 0 && me->p_no == me->cfg->no_phil))
+	// 	print_status(me->p_no, THINKING, me, DEBUG);
+
+
+	while (get_bool(&(me->cfg->meal_end), &(me->cfg->mt_cfg)) == FALSE)
+	{
+
+		if (get_bool(&(me->full), &(me->mt_me)) == TRUE)
 			break;
 
-		//2. Eat
+		//1. Eat
 		eat(me);
+
+		//2. check if philo full. Break out of while loop if full
+		// if (get_bool(&(me->full), &(me->mt_me)) == TRUE)
+		// 	break;
 
 		//3. Sleep
 		print_status(me->p_no, SLEEPING, me, DEBUG);
@@ -100,6 +127,10 @@ void	*meal_start(void *data)
 
 		//4. Think
 		print_status(me->p_no, THINKING, me, DEBUG);
+		//introduce thinking time
+
+
 	}
+	// printf("broke out of meal\n");
 	return (NULL);
 }

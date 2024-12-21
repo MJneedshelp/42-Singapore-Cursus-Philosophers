@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:49:46 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/21 10:31:32 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/21 15:53:42 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,10 @@
 #define ERR_NO_ARG_1 "Please run the programme with only the following args: "
 #define ERR_NO_ARG_2 "No. of philos, time to die, time to eat, time to sleep, "
 #define ERR_NO_ARG_3 "and the number of times each philo eats (optional)."
-#define ERR_NO_ARG_4 "E.g. ./philo 10 410 200 200 10"
-#define ERR_NO_ARG_5 "E.g. ./philo 10 410 200 200"
-#define ERR_ARG_NUMERIC "Please ensure that all your arguments are numeric: "
+#define ERR_ARG_NUMERIC_1 "Please ensure that all your arguments are numeric."
+
+#define ERR_EG_1 "E.g. ./philo 10 410 200 200 10"
+#define ERR_EG_2 "E.g. ./philo 10 410 200 200"
 
 
 
@@ -57,6 +58,13 @@ enum	e_bool
 	TRUE = 42
 };
 
+enum	e_err_type
+{
+	ERR_NO_ARGS,
+	ERR_ARG_NUMERIC
+};
+
+
 
 enum	e_state
 {
@@ -65,7 +73,8 @@ enum	e_state
 	SLEEPING,
 	GRAB_FIRST_FORK,
 	GRAB_SECOND_FORK,
-	DEAD
+	DEAD,
+	START
 };
 
 
