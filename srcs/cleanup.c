@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 19:05:55 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/20 01:10:45 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/21 08:10:57 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,16 +85,25 @@ void	destroy_philo_mutex(t_philo *philos, int n)
 }
 
 /* Description: Destroys all the mutex used in the programme:
-	1. Destroys all the fork mutex
-	2. Destroys all the philo mutex
-	3. Destroys mt_cfg
-	4. Destroys mt_print
+	1. Destroys mt_cfg
+	2. Destroys mt_print
+	3. Destroys all the fork mutex
+	4. Destroys all the philo mutex
+   Uses int levels to iterate through all the mutex that needs to be destroyed
 */
 
-void	destroy_all_mutex(t_config *cfg)
+void	destroy_all_mutex(t_config *cfg, int levels)
 {
-	destroy_forks_mutex(cfg->mt_forks, cfg->no_phil);
-	destroy_philo_mutex(cfg->philos, cfg->no_phil);
-	pthread_mutex_destroy(&(cfg->mt_cfg));
-	pthread_mutex_destroy(&(cfg->mt_print));
+	while (levels > 0)
+	{
+		if (levels == 4)
+			destroy_philo_mutex(cfg->philos, cfg->no_phil);
+		if (levels == 3)
+			destroy_forks_mutex(cfg->mt_forks, cfg->no_phil);
+		if (levels == 2)
+			pthread_mutex_destroy(&(cfg->mt_print));
+		if (levels == 1)
+			pthread_mutex_destroy(&(cfg->mt_cfg));
+		levels--;
+	}
 }

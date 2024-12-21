@@ -101,6 +101,5 @@ void	*meal_start(void *data)
 		//4. Think
 		print_status(me->p_no, THINKING, me, DEBUG);
 	}
-	printf("philo: %d | Done eating and breaking out of while loop\n", me->p_no);
 	return (NULL);
 }

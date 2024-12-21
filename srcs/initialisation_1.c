@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 12:12:44 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/20 03:24:32 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/21 08:37:59 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,11 @@ int	init_philos(t_config *cfg, t_philo *philos, int no_phil)
 			philos[i].l_fork = &(cfg->mt_forks[i - 1]);
 			philos[i].l_no = i - 1;
 		}
-		if (mutex_init(&(philos[i].mt_me)) != EXIT_SUCCESS)	//handle the case where the mutex init fails. Destroy all the created mutex
+		if (mutex_init(&(philos[i].mt_me)) != EXIT_SUCCESS)
+		{
+			destroy_philo_mutex(philos, i);
 			return (EXIT_FAILURE);
+		}
 		i++;
 	}
 	assign_forks(philos, no_phil);
@@ -108,7 +111,7 @@ int	arise_philos(t_config *cfg)
 	if (status != EXIT_SUCCESS)
 	{
 		join_philos(cfg->cust, i);
-		destroy_all_mutex(cfg);
+		destroy_all_mutex(cfg, 4);
 		dishwasher(cfg);
 	}
 	return (status);
@@ -118,7 +121,7 @@ int	arise_philos(t_config *cfg)
    a fork. If there are errors encountered uring the mutex creation, destroy
    the previously created mutex.
 */
-int	create_forks(t_config *cfg, pthread_mutex_t *mt_forks, int no_phil)
+int	create_forks(pthread_mutex_t *mt_forks, int no_phil)
 {
 	int	i;
 	int	status;
@@ -136,9 +139,6 @@ int	create_forks(t_config *cfg, pthread_mutex_t *mt_forks, int no_phil)
 		i++;
 	}
 	if (status != EXIT_SUCCESS)
-	{
 		destroy_forks_mutex(mt_forks, i);
-		dishwasher(cfg);
-	}
 	return (status);
 }

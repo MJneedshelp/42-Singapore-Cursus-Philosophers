@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 11:25:48 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/20 03:23:13 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/21 10:21:59 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ int	main(int argc, char *argv[])
 	pthread_t	waiter;
 
 	//Perfom input validation here first before initialisation
+	if (input_validation(argc, argv) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+
 
 
 	if (init_config(&cfg, argc, argv) == EXIT_FAILURE)
@@ -40,7 +43,7 @@ int	main(int argc, char *argv[])
 	pthread_create(&waiter, NULL, waiter_start, &cfg); //create waiter thread, check if creation fails
 	pthread_join(waiter, NULL);
 	join_philos(cfg.cust, cfg.no_phil);
-	destroy_all_mutex(&cfg);
+	destroy_all_mutex(&cfg, 4);
 	dishwasher(&cfg);
 	return (EXIT_SUCCESS);
 }
