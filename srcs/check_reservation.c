@@ -15,6 +15,7 @@
 /* Description: prints different types of error messages and prints an example
    for the user at the end
 */
+
 void	print_err(int type)
 {
 	if (type == ERR_NO_ARGS)
@@ -26,7 +27,11 @@ void	print_err(int type)
 	else if (type == ERR_ARG_NUMERIC)
 		ft_putendl_fd(ERR_ARG_NUMERIC_1, STDERR_FILENO);
 	else if (type == ERR_TABLE_LIMIT)
-		ft_putendl_fd(ERR_TABLE_LIMIT_1, STDERR_FILENO);
+	{
+		ft_putstr_fd(ERR_TABLE_LIMIT_1, STDERR_FILENO);
+		ft_putnbr_fd(MAX_PHILOS, STDERR_FILENO);
+		ft_putendl_fd(ERR_TABLE_LIMIT_2, STDERR_FILENO);
+	}
 	ft_putendl_fd(ERR_EG_1, STDERR_FILENO);
 	ft_putendl_fd(ERR_EG_2, STDERR_FILENO);
 }
@@ -34,17 +39,14 @@ void	print_err(int type)
 /* Description: handles the case where there is only 1 philo. Prints out the
    required messages without consuming unnecessary resources.
 */
+
 void	lone_customer(char *argv[])
 {
-	// printf("time to die: %d\n", ft_atoi(argv[2]));
 	printf(GREEN"%ld " RED"1 has taken a fork\n"RESET, checktime());
 	usleep(ft_atoi(argv[2]) * 1000);
-	// printf("Correct\n");
-
 	printf(GREEN"%ld " NORM_WHITE"1 died\n"RESET, checktime());
 	if(argv[2] == NULL)
 		printf("Correct\n");
-
 }
 
 /* Description: Takes in a string and checks if all characters are digits.
@@ -73,7 +75,7 @@ int	check_numeric(char *str)
 /* Description: performs input validation. Checks the following:
 	1. Correct number of arguments: 5 or 6
 	2. Each argument is are digits
-	3. Accept only between 1 and 100 philos
+	3. Accept only between 1 and MAX philos
 	4. Handle the case of 1 philo
 */
 
@@ -93,7 +95,7 @@ int	input_validation(int argc, char *argv[])
 		}
 		argc--;
 	}
-	if (ft_atoi(argv[1]) < 1 || ft_atoi(argv[1]) > 100 )
+	if (ft_atoi(argv[1]) < 1 || ft_atoi(argv[1]) > MAX_PHILOS )
 	{
 		print_err(ERR_TABLE_LIMIT);
 		return (EXIT_FAILURE);

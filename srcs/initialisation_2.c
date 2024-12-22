@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 12:12:44 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/22 12:04:44 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/22 14:18:47 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,29 @@
 
 /* Description: Performs all the memory allocation required for the programme.
    If any of the malloc fails, free any allocated memory and return
-   EXIT_FAILURE.
+   EXIT_FAILURE. Sets all the members of the bill array to FALSE.
 */
 
 int	init_memory(t_config *cfg)
 {
-	cfg->bill = (int *)malloc(cfg->no_phil * sizeof(int));	//rmb to set all to FALSE
+	int	i;
+
+	cfg->bill = (int *)malloc(cfg->no_phil * sizeof(int));
 	cfg->cust = (pthread_t *)malloc(cfg->no_phil * sizeof(pthread_t));
-	cfg->mt_forks = (pthread_mutex_t *)malloc(cfg->no_phil * sizeof(pthread_mutex_t));
+	cfg->mt_forks = \
+	(pthread_mutex_t *)malloc(cfg->no_phil * sizeof(pthread_mutex_t));
 	cfg->philos = (t_philo *)malloc(cfg->no_phil * sizeof(t_philo));
 	if (cfg->bill == NULL || cfg->cust == NULL || \
 	cfg->mt_forks == NULL || cfg->philos == NULL)
 	{
 		dishwasher(cfg);
 		return (EXIT_FAILURE);
+	}
+	i = 0;
+	while (i < cfg->no_phil)
+	{
+		(cfg->bill)[i] = FALSE;
+		i++;
 	}
 	return (EXIT_SUCCESS);
 }
@@ -64,8 +73,15 @@ int	init_all_mutex(t_config *cfg)
 	return (EXIT_SUCCESS);
 }
 
-/* Description: Initialises all the input
-   XXXXX EXPLAIN ALL THE DIFFERENT MEMBERS IN YOUR STRUCT PLS
+/* Description: Initialises all the inputs used in the config:
+   	- no. of philos
+	- time to die
+	- time to eat
+	- time to sleep
+	- no. of eat times: -1 if not provided
+	- all_seated: used when all philos are created
+	- meal_end: used when 1 philo dies or when all philos have eaten enough
+
 */
 
 int	init_config(t_config *cfg, int argc, char *argv[])

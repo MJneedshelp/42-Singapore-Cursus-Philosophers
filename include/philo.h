@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:49:46 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/22 11:54:29 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/22 14:04:28 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@
 #define WHITE "\033[0;97m"
 #define RESET "\033[0m"
 
+/* Define the max number of philos accepted */
+#define MAX_PHILOS 20
+
 /* Debug flag */
 #define DEBUG 24
 
@@ -39,9 +42,8 @@
 #define ERR_NO_ARG_2 "No. of philos, time to die, time to eat, time to sleep, "
 #define ERR_NO_ARG_3 "and the number of times each philo eats (optional)."
 #define ERR_ARG_NUMERIC_1 "Please ensure that all your arguments are numeric."
-#define ERR_TABLE_LIMIT_1 "This table only seats between 1 and 100 customers."
-
-
+#define ERR_TABLE_LIMIT_1 "This table only seats between 1 and "
+#define ERR_TABLE_LIMIT_2 " customers"
 
 #define ERR_EG_1 "E.g. ./philo 10 410 200 200 10"
 #define ERR_EG_2 "E.g. ./philo 10 410 200 200"
@@ -157,6 +159,7 @@ size_t	ft_strlen(const char *str);
 int		ft_atoi(const char *str);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
+void	ft_putnbr_fd(int n, int fd);
 void	ft_putendl_fd(char *s, int fd);
 int		ft_isdigit(int a);
 long	checktime(void);
