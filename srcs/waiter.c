@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 09:14:02 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/22 08:11:05 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/22 16:45:24 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,38 @@ int	all_bill(int no_phil, int *bill)
 		if (bill[i] != TRUE)
 		{
 			status = FALSE;
-			break;
+			break ;
 		}
 		i++;
 	}
 	return (status);
 }
 
+/* Description: Checks if the current philo is dead based on their last eat
+   time if the philo is not already full. If the philo is full, bill them.
+*/
 
+int	check_dead(t_philo *curr_philo, t_config *cfg, unsigned int ctr)
+{
+	if (get_bool(&(curr_philo->full), &(curr_philo->mt_me)) != TRUE)
+	{
+		if (checktime() - get_long(&(curr_philo->ms_last_eat), \
+		&(curr_philo->mt_me)) > (long)(cfg->die_ms))
+		{
+			print_status((ctr % cfg->no_phil) + 1, DEAD, curr_philo);
+			return (TRUE);
+		}
+	}
+	else
+		cfg->bill[ctr % cfg->no_phil] = TRUE;
+	return (FALSE);
+}
 
 /* Description: The routine function called by the waiter thread after its
    creation. Cycles through each philo and performs the following:
-   	1. Checks if the philo is full already. Skip step 2 if philo is full
+   	0. Waiter waits for a short delay before checking to allow the philos to
+	   set their last eat time
+	1. Checks if the philo is full already. Skip step 2 if philo is full
 	2. Get current time, checks philo's last eat time -> determine if philo is
 	   dead
 	3. Update the meal_end variable to TRUE if some philo died
@@ -55,36 +75,20 @@ void	*waiter_start(void *data)
 	t_config		*cfg;
 	unsigned int	ctr;
 	t_philo			*curr_philo;
-	// long			dur;
 
-	// usleep(500);
+	usleep(WAITER_WAIT);
 	cfg = (t_config *)data;
 	ctr = cfg->no_phil - 1;
 	while (get_bool(&(cfg->meal_end), &(cfg->mt_cfg)) != TRUE)
 	{
 		curr_philo = &(cfg->philos[ctr % cfg->no_phil]);
-		if (get_bool(&(curr_philo->full), &(curr_philo->mt_me)) != TRUE)
-		{
-			// dur = checktime() - get_long(&(curr_philo->ms_last_eat), &(curr_philo->mt_me));
-			// printf("Dur: %ld\n", dur);
-
-			if (checktime() - get_long(&(curr_philo->ms_last_eat), \
-			&(curr_philo->mt_me)) > (long)(cfg->die_ms))
-			// if (dur > (long)(cfg->die_ms))
-			{
-				print_status((ctr % cfg->no_phil) + 1, DEAD, curr_philo, DEBUG);
-				// set_bool(&(cfg->meal_end), TRUE, &(cfg->mt_cfg));
-				break;
-			}
-		}
-		else
-			cfg->bill[ctr % cfg->no_phil] = TRUE;
+		if (check_dead(curr_philo, cfg, ctr) == TRUE)
+			break ;
 		if (all_bill(cfg->no_phil, cfg->bill) == TRUE)
 			set_bool(&(cfg->meal_end), TRUE, &(cfg->mt_cfg));
 		ctr++;
 		if (ctr == 0)
 			ctr = cfg->no_phil - 1;
 	}
-	// printf("Waiter routine finished\n");
 	return (NULL);
 }

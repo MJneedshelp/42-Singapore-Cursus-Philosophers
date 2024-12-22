@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 12:12:44 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/22 14:18:47 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/22 15:12:00 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,9 @@ int	init_all_mutex(t_config *cfg)
 	- no. of eat times: -1 if not provided
 	- all_seated: used when all philos are created
 	- meal_end: used when 1 philo dies or when all philos have eaten enough
-
+	- allocates all the memory required for the programme
+	- creates all the mutex required for the programme
+   Return EXIT_FAILURE if any of the steps fail
 */
 
 int	init_config(t_config *cfg, int argc, char *argv[])

@@ -44,10 +44,10 @@ void	eat(t_philo *me)
 
 	eat_reps = me->cfg->eat_reps;
 	pthread_mutex_lock(me->first_fork);
-	print_status(me->p_no, GRAB_FIRST_FORK, me, DEBUG);
+	print_status(me->p_no, GRAB_FIRST_FORK, me);
 	pthread_mutex_lock(me->second_fork);
-	print_status(me->p_no, GRAB_SECOND_FORK, me, DEBUG);
-	eat_start = print_status(me->p_no, EATING, me, DEBUG);
+	print_status(me->p_no, GRAB_SECOND_FORK, me);
+	eat_start = print_status(me->p_no, EATING, me);
 	set_long(&(me->ms_last_eat), eat_start, &(me->mt_me));
 	usleep(me->cfg->eat_ms * 1000);
 	pthread_mutex_unlock(me->first_fork);
@@ -61,14 +61,42 @@ void	eat(t_philo *me)
 	}
 }
 
+/* Description: Prints the sleep status and then usleeps for the sleep time
+*/
+void	dream(t_philo *me)
+{
+	print_status(me->p_no, SLEEPING, me);
+	usleep(me->cfg->sleep_ms * 1000);
+}
 
+/* Description: Prints the thinking status. usleeps for the half the sleep
+   time under the following conditions:
+	- Odd number of philos AND
+	- Eat time == Sleep time OR Eat time > Sleep time
+*/
+void	wonder(t_philo *me)
+{
+	print_status(me->p_no, THINKING, me);
+	if (me->cfg->no_phil % 2 != 0 && (me->cfg->eat_ms == me->cfg->sleep_ms || \
+	me->cfg->eat_ms > me->cfg->sleep_ms))
+		usleep(0.5 * me->cfg->sleep_ms * 1000);
+}
 
 /* Description: The routine function called by each philo thread when each
    thread is created. Each thread's philo characteristics (philo number, the
    forks the thread has access to, etc.) are passed into the routine function.
    Performs the following actions:
 	1. Waits for all philos to be seated at the table
-	2. XXXX
+	2. Sets the start time as the last eat time
+	3. Sets a condition for the even numbered philos to sleep first
+	4. While meal is ongoing:
+		a. Check if I am full. Break if full
+		b. Eat
+		c. Check if I am full. Break if full
+		d. Sleep
+		e. Think. Thinking time introduced for the following scenarios:
+			- Odd number of philos AND
+			- Eat time == Sleep time OR Eat time > Sleep time
 */
 
 void	*meal_start(void *data)
@@ -78,67 +106,23 @@ void	*meal_start(void *data)
 
 	me = (t_philo *)data;
 	wait_ready(&(me->cfg->mt_cfg), &(me->cfg->all_seated));
-
-
-
-	//check current time and set last eat time
 	time = checktime();
 	set_long(&(me->ms_last_eat), time, &(me->mt_me));
-
-	// printf("I am %d and my last eat time is %ld\n", me->p_no, time);
-
-	// if (me->p_no % 2 == 0 || (me->cfg->no_phil % 2 != 0 && me->p_no == me->cfg->no_phil))
 	if (me->p_no % 2 == 0)
 	{
-		print_status(me->p_no, SLEEPING, me, DEBUG);
+		print_status(me->p_no, SLEEPING, me);
 		usleep(me->cfg->sleep_ms * 1000);
-		print_status(me->p_no, THINKING, me, DEBUG);
-
+		print_status(me->p_no, THINKING, me);
 	}
-	// else
-	// {
-	// 	if (me->cfg->no_phil % 2 != 0 && me->p_no == me->cfg->no_phil)
-	// 		print_status(me->p_no, THINKING, me, DEBUG);
-	// }
-
-
-
-
-	//try if I'm the last person and there's an odd number of philos then sleep first
-	// if ((me->cfg->no_phil % 2 != 0 && me->p_no == me->cfg->no_phil))
-	// 	print_status(me->p_no, THINKING, me, DEBUG);
-
-
 	while (get_bool(&(me->cfg->meal_end), &(me->cfg->mt_cfg)) == FALSE)
 	{
-
 		if (get_bool(&(me->full), &(me->mt_me)) == TRUE)
-			break;
-
-		//1. Eat
+			break ;
 		eat(me);
-
-		//2. check if philo full. Break out of while loop if full
 		if (get_bool(&(me->full), &(me->mt_me)) == TRUE)
-			break;
-
-		//3. Sleep
-		print_status(me->p_no, SLEEPING, me, DEBUG);
-		usleep(me->cfg->sleep_ms * 1000);
-
-		//4. Think
-		print_status(me->p_no, THINKING, me, DEBUG);
-		//introduce thinking time only for cases when eating and sleeping time are the same
-		if (me->cfg->no_phil % 2 != 0 && (me->cfg->eat_ms == me->cfg->sleep_ms || me->cfg->eat_ms > me->cfg->sleep_ms))
-		{
-			// printf("inside here\n");
-			usleep(0.5 * me->cfg->sleep_ms * 1000);
-		}
-
-
-
-
+			break ;
+		dream(me);
+		wonder(me);
 	}
-	// printf("broke out of meal\n");
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 12:12:44 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/21 08:37:59 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/22 16:12:06 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	assign_forks(t_philo *philos, int no_phil)
 }
 
 /* Description: Initialises the members of the philo array for each philo in
-   the array of philos. Assigns the following
-   XXXXXXXXXXXXXXXXXX fill in later
+   the array of philos.
 */
+
 int	init_philos(t_config *cfg, t_philo *philos, int no_phil)
 {
 	int	i;
@@ -57,19 +57,12 @@ int	init_philos(t_config *cfg, t_philo *philos, int no_phil)
 		philos[i].cfg = cfg;
 		philos[i].eat_times = 0;
 		philos[i].p_no = i + 1;
-		philos[i].r_no = i;
 		philos[i].r_fork = &(cfg->mt_forks[i]);
 		philos[i].full = FALSE;
 		if (i == 0)
-		{
 			philos[i].l_fork = &(cfg->mt_forks[no_phil - 1]);
-			philos[i].l_no = no_phil - 1;
-		}
 		else
-		{
 			philos[i].l_fork = &(cfg->mt_forks[i - 1]);
-			philos[i].l_no = i - 1;
-		}
 		if (mutex_init(&(philos[i].mt_me)) != EXIT_SUCCESS)
 		{
 			destroy_philo_mutex(philos, i);
@@ -80,12 +73,6 @@ int	init_philos(t_config *cfg, t_philo *philos, int no_phil)
 	assign_forks(philos, no_phil);
 	return (EXIT_SUCCESS);
 }
-
-
-
-
-
-
 
 /* Description: Creates the philo threads. If any of the thread creation fails,
    join all the created philos, then free the memory allocated for cust[].
@@ -100,7 +87,8 @@ int	arise_philos(t_config *cfg)
 	status = EXIT_SUCCESS;
 	while (i < cfg->no_phil)
 	{
-		if (pthread_create(&(cfg->cust[i]), NULL, meal_start, &(cfg->philos[i])) != 0)
+		if (pthread_create(&(cfg->cust[i]), NULL, meal_start, \
+		&(cfg->philos[i])) != 0)
 		{
 			ft_putendl_fd("Error creating philos", STDERR_FILENO);
 			status = EXIT_FAILURE;
@@ -134,7 +122,7 @@ int	create_forks(pthread_mutex_t *mt_forks, int no_phil)
 		{
 			ft_putendl_fd("Error creating forks", STDERR_FILENO);
 			status = EXIT_FAILURE;
-			break;
+			break ;
 		}
 		i++;
 	}

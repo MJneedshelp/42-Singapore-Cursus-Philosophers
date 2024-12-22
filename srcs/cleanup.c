@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 19:05:55 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/21 11:51:09 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/22 15:49:33 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	join_philos(pthread_t *cust, int num)
 
 void	destroy_forks_mutex(pthread_mutex_t *mt_arr, int n)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < n)

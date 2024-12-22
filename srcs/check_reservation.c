@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_reservation.c                                 :+:      :+:    :+:   */
+/*   check_reservation.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 08:44:02 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/21 08:44:16 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/22 15:50:29 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	lone_customer(char *argv[])
 	printf(GREEN"%ld " RED"1 has taken a fork\n"RESET, checktime());
 	usleep(ft_atoi(argv[2]) * 1000);
 	printf(GREEN"%ld " NORM_WHITE"1 died\n"RESET, checktime());
-	if(argv[2] == NULL)
+	if (argv[2] == NULL)
 		printf("Correct\n");
 }
 
@@ -95,7 +95,7 @@ int	input_validation(int argc, char *argv[])
 		}
 		argc--;
 	}
-	if (ft_atoi(argv[1]) < 1 || ft_atoi(argv[1]) > MAX_PHILOS )
+	if (ft_atoi(argv[1]) < 1 || ft_atoi(argv[1]) > MAX_PHILOS)
 	{
 		print_err(ERR_TABLE_LIMIT);
 		return (EXIT_FAILURE);

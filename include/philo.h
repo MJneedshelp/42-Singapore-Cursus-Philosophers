@@ -6,50 +6,45 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:49:46 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/22 14:04:28 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/22 16:52:03 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	PHILO_H
+#ifndef PHILO_H
 # define PHILO_H
 
-#include <pthread.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/time.h>
-#include <limits.h>
-
+# include <pthread.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <sys/time.h>
+# include <limits.h>
 
 /* Colours used for formatting printf*/
-#define RED "\033[0;31m"
-#define GREEN "\033[0;32m"
-#define BLUE "\033[0;34m"
-#define YELLOW "\033[0;93m"
-#define PURPLE "\033[0;95m"
-#define NORM_WHITE "\033[0;37m"
-#define WHITE "\033[0;97m"
-#define RESET "\033[0m"
+# define RED "\033[0;31m"
+# define GREEN "\033[0;32m"
+# define BLUE "\033[0;34m"
+# define YELLOW "\033[0;93m"
+# define PURPLE "\033[0;95m"
+# define NORM_WHITE "\033[0;37m"
+# define WHITE "\033[0;97m"
+# define RESET "\033[0m"
 
 /* Define the max number of philos accepted */
-#define MAX_PHILOS 20
+# define MAX_PHILOS 100
 
-/* Debug flag */
-#define DEBUG 24
+/* Define the delay at the start before the waiter to check */
+# define WAITER_WAIT 10000
 
 /* Error messages */
-#define ERR_NO_ARG_1 "Please run the programme with only the following args: "
-#define ERR_NO_ARG_2 "No. of philos, time to die, time to eat, time to sleep, "
-#define ERR_NO_ARG_3 "and the number of times each philo eats (optional)."
-#define ERR_ARG_NUMERIC_1 "Please ensure that all your arguments are numeric."
-#define ERR_TABLE_LIMIT_1 "This table only seats between 1 and "
-#define ERR_TABLE_LIMIT_2 " customers"
-
-#define ERR_EG_1 "E.g. ./philo 10 410 200 200 10"
-#define ERR_EG_2 "E.g. ./philo 10 410 200 200"
-
-
-
+# define ERR_NO_ARG_1 "Please run the programme with only the following args: "
+# define ERR_NO_ARG_2 "No. of philos, time to die, time to eat, time to sleep, "
+# define ERR_NO_ARG_3 "and the number of times each philo eats (optional)."
+# define ERR_ARG_NUMERIC_1 "Please ensure that all your arguments are numeric."
+# define ERR_TABLE_LIMIT_1 "This table only seats between 1 and "
+# define ERR_TABLE_LIMIT_2 " customers"
+# define ERR_EG_1 "E.g. ./philo 10 410 200 200 10"
+# define ERR_EG_2 "E.g. ./philo 10 410 200 200"
 
 /* Forward declare s_config and s_philo as they will be referencing
    each other */
@@ -57,6 +52,7 @@
 typedef struct s_config	t_config;
 typedef struct s_philo	t_philo;
 
+/* Enumerables for easier reading */
 enum	e_bool
 {
 	FALSE = 24,
@@ -70,8 +66,6 @@ enum	e_err_type
 	ERR_TABLE_LIMIT
 };
 
-
-
 enum	e_state
 {
 	EATING,
@@ -83,10 +77,9 @@ enum	e_state
 	START
 };
 
-
-
 /* Define s_config struct. Configuration structure to hold all the important
-   information*/
+   information
+*/
 typedef struct s_config
 {
 	int				no_phil;
@@ -104,14 +97,12 @@ typedef struct s_config
 	t_philo			*philos;
 }	t_config;
 
-/* Define the s_philo struct. Contains the characteristics of each philo philo thread
+/* Define the s_philo struct. Contains the characteristics of each philo thread
 */
 typedef struct s_philo
 {
 	int				p_no;
 	int				full;
-	int				r_no;
-	int				l_no;
 	long			eat_times;
 	long			ms_last_eat;
 	pthread_mutex_t	*r_fork;
@@ -122,26 +113,18 @@ typedef struct s_philo
 	t_config		*cfg;
 }	t_philo;
 
-
-
 /* Initialisation */
 int		input_validation(int argc, char *argv[]);
-
 int		init_philos(t_config *cfg, t_philo *philos, int no_phil);
 int		arise_philos(t_config *cfg);
 int		create_forks(pthread_mutex_t *mt_forks, int no_phil);
 int		init_config(t_config *cfg, int argc, char *argv[]);
 
-
-
-
 /* Meal time */
 void	*meal_start(void *data);
 
-
 /* Waiter functions */
 void	*waiter_start(void *data);
-
 
 /* Clean-up functions */
 void	join_philos(pthread_t *cust, int num);
@@ -149,10 +132,6 @@ void	destroy_forks_mutex(pthread_mutex_t *mt_arr, int n);
 void	destroy_philo_mutex(t_philo *philos, int n);
 void	destroy_all_mutex(t_config *cfg, int levels);
 void	dishwasher(t_config *config);
-
-
-
-
 
 /* Utility functions */
 size_t	ft_strlen(const char *str);
@@ -163,9 +142,7 @@ void	ft_putnbr_fd(int n, int fd);
 void	ft_putendl_fd(char *s, int fd);
 int		ft_isdigit(int a);
 long	checktime(void);
-long	print_status(int p_no, int status, t_philo *me, int debug);
-
-
+long	print_status(int p_no, int status, t_philo *me);
 
 /* Mutex utility functions */
 int		mutex_init(pthread_mutex_t *mt);
@@ -174,18 +151,4 @@ int		get_bool(int *bool, pthread_mutex_t *mt);
 void	set_long(long *l_nbr, long long_val, pthread_mutex_t *mt);
 long	get_long(long *l_nbr, pthread_mutex_t *mt);
 
-
-
-
-
-
-
-
-
-
-
-
 #endif
-
-
-

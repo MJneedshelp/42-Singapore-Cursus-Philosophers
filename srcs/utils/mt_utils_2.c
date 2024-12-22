@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:08:26 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/21 17:56:20 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/22 15:53:13 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	print_debug(int p_no, int status, long now)
    timestamp of the printed status
 */
 
-long	print_status(int p_no, int status, t_philo *me, int debug)
+long	print_status(int p_no, int status, t_philo *me)
 {
 	long	now;
 
@@ -46,23 +46,18 @@ long	print_status(int p_no, int status, t_philo *me, int debug)
 	now = checktime();
 	if (get_bool(&(me->cfg->meal_end), &(me->cfg->mt_cfg)) != TRUE)
 	{
-		if (debug == TRUE)
-			print_debug(p_no, status, now);
-		else
+		if (status == GRAB_FIRST_FORK || status == GRAB_SECOND_FORK)
+			printf(GREEN"%ld " RED"%d has taken a fork\n"RESET, now, p_no);
+		else if (status == EATING)
+			printf(GREEN"%ld " WHITE"%d is eating\n"RESET, now, p_no);
+		else if (status == SLEEPING)
+			printf(GREEN"%ld " BLUE"%d is sleeping\n"RESET, now, p_no);
+		else if (status == THINKING)
+			printf(GREEN"%ld " YELLOW"%d is thinking\n"RESET, now, p_no);
+		else if (status == DEAD)
 		{
-			if (status == GRAB_FIRST_FORK || status == GRAB_SECOND_FORK)
-				printf(GREEN"%ld " RED"%d has taken a fork\n"RESET, now, p_no);
-			else if (status == EATING)
-				printf(GREEN"%ld " WHITE"%d is eating\n"RESET, now, p_no);
-			else if (status == SLEEPING)
-				printf(GREEN"%ld " BLUE"%d is sleeping\n"RESET, now, p_no);
-			else if (status == THINKING)
-				printf(GREEN"%ld " YELLOW"%d is thinking\n"RESET, now, p_no);
-			else if (status == DEAD)
-			{
-				set_bool(&(me->cfg->meal_end), TRUE, &(me->cfg->mt_cfg));
-				printf(GREEN"%ld " NORM_WHITE"%d died\n"RESET, now, p_no);
-			}
+			set_bool(&(me->cfg->meal_end), TRUE, &(me->cfg->mt_cfg));
+			printf(GREEN"%ld " NORM_WHITE"%d died\n"RESET, now, p_no);
 		}
 	}
 	pthread_mutex_unlock(&(me->cfg->mt_print));
