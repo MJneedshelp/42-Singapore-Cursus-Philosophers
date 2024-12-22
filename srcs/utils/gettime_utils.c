@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:39:09 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/18 22:11:50 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/22 13:07:42 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ long	checktime(void)
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
-	ms = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+	ms = (tv.tv_sec * 1000 + tv.tv_usec / 1000) % 1000000;
 	return (ms);
 }

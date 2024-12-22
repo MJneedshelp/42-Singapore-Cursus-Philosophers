@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:49:46 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/21 15:53:42 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/22 11:54:29 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@
 #define ERR_NO_ARG_2 "No. of philos, time to die, time to eat, time to sleep, "
 #define ERR_NO_ARG_3 "and the number of times each philo eats (optional)."
 #define ERR_ARG_NUMERIC_1 "Please ensure that all your arguments are numeric."
+#define ERR_TABLE_LIMIT_1 "This table only seats between 1 and 100 customers."
+
+
 
 #define ERR_EG_1 "E.g. ./philo 10 410 200 200 10"
 #define ERR_EG_2 "E.g. ./philo 10 410 200 200"
@@ -61,7 +64,8 @@ enum	e_bool
 enum	e_err_type
 {
 	ERR_NO_ARGS,
-	ERR_ARG_NUMERIC
+	ERR_ARG_NUMERIC,
+	ERR_TABLE_LIMIT
 };
 
 

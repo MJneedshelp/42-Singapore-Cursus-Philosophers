@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 12:12:44 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/21 16:05:32 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/22 12:04:44 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int	init_config(t_config *cfg, int argc, char *argv[])
 {
 	cfg->no_phil = ft_atoi(argv[1]);
 	cfg->die_ms = ft_atoi(argv[2]);
-	printf("Time to die: %d\n", cfg->die_ms);
 	cfg->eat_ms = ft_atoi(argv[3]);
 	cfg->sleep_ms = ft_atoi(argv[4]);
 	cfg->eat_reps = -1;
