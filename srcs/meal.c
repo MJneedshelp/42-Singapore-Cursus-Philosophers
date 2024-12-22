@@ -87,7 +87,8 @@ void	*meal_start(void *data)
 
 	// printf("I am %d and my last eat time is %ld\n", me->p_no, time);
 
-	if (me->p_no % 2 == 0 || (me->cfg->no_phil % 2 != 0 && me->p_no == me->cfg->no_phil))
+	// if (me->p_no % 2 == 0 || (me->cfg->no_phil % 2 != 0 && me->p_no == me->cfg->no_phil))
+	if (me->p_no % 2 == 0)
 	{
 		print_status(me->p_no, SLEEPING, me, DEBUG);
 		usleep(me->cfg->sleep_ms * 1000);
@@ -118,8 +119,8 @@ void	*meal_start(void *data)
 		eat(me);
 
 		//2. check if philo full. Break out of while loop if full
-		// if (get_bool(&(me->full), &(me->mt_me)) == TRUE)
-		// 	break;
+		if (get_bool(&(me->full), &(me->mt_me)) == TRUE)
+			break;
 
 		//3. Sleep
 		print_status(me->p_no, SLEEPING, me, DEBUG);
@@ -127,7 +128,14 @@ void	*meal_start(void *data)
 
 		//4. Think
 		print_status(me->p_no, THINKING, me, DEBUG);
-		//introduce thinking time
+		//introduce thinking time only for cases when eating and sleeping time are the same
+		if (me->cfg->no_phil % 2 != 0 && (me->cfg->eat_ms == me->cfg->sleep_ms || me->cfg->eat_ms > me->cfg->sleep_ms))
+		{
+			// printf("inside here\n");
+			usleep(0.5 * me->cfg->sleep_ms * 1000);
+		}
+
+
 
 
 	}

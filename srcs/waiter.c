@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 09:14:02 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/21 16:58:45 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/22 08:11:05 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	*waiter_start(void *data)
 	t_philo			*curr_philo;
 	// long			dur;
 
-	usleep(500);
+	// usleep(500);
 	cfg = (t_config *)data;
 	ctr = cfg->no_phil - 1;
 	while (get_bool(&(cfg->meal_end), &(cfg->mt_cfg)) != TRUE)
