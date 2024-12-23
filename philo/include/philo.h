@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:49:46 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/24 04:51:24 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/24 05:05:32 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ typedef struct s_config
 	int				eat_reps;
 	int				meal_end;
 	int				all_seated;
+	long			start_time;
 	pthread_t		*cust;
 	pthread_mutex_t	mt_cfg;
 	pthread_mutex_t	mt_print;

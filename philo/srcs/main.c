@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 11:25:48 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/23 22:38:15 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/24 05:11:15 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,11 @@ int	main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	if (arise_philos(&cfg) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
+
+	set_long(&(cfg.start_time), checktime(), &cfg.mt_print);
 	set_bool(&(cfg.all_seated), TRUE, &cfg.mt_cfg);
+
+	// cfg.start_time = checktime();
 	if (pthread_create(&waiter, NULL, waiter_start, &cfg) != 0)
 	{
 		destroy_all_mutex(&cfg, 4);
