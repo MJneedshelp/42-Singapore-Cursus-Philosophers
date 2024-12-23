@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:49:46 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/23 20:43:42 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/23 22:25:57 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@
 # define ERR_NO_ARG_2 "No. of philos, time to die, time to eat, time to sleep, "
 # define ERR_NO_ARG_3 "and the number of times each philo eats (optional)."
 # define ERR_ARG_NUMERIC_1 "Please ensure that all your args are positive ints"
+# define ERR_ARG_EXC_INT_1 "We only accept INTelligent customers"
+
 # define ERR_DIE_FAST_1 "This is not a speed eating competition! > 200ms !"
 # define ERR_EAT_AIR_1 "Get out of here if you're not hungry!"
 
@@ -70,6 +72,7 @@ enum	e_err_type
 {
 	ERR_NO_ARGS,
 	ERR_ARG_NUMERIC,
+	ERR_ARG_EXC_INT,
 	ERR_DIE_FAST,
 	ERR_EAT_AIR,
 	ERR_TABLE_LIMIT
@@ -146,6 +149,7 @@ void	dishwasher(t_config *config);
 /* Utility functions */
 size_t	ft_strlen(const char *str);
 int		ft_atoi(const char *str);
+long	ft_atol(const char *str);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
