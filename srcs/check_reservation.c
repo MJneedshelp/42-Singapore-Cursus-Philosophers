@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 08:44:02 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/23 00:04:50 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/23 20:45:48 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ void	print_err(int type)
 	}
 	else if (type == ERR_ARG_NUMERIC)
 		ft_putendl_fd(ERR_ARG_NUMERIC_1, STDERR_FILENO);
+	else if (type == ERR_DIE_FAST)
+		ft_putendl_fd(ERR_DIE_FAST_1, STDERR_FILENO);
+	else if (type == ERR_EAT_AIR)
+		ft_putendl_fd(ERR_EAT_AIR_1, STDERR_FILENO);
 	else if (type == ERR_TABLE_LIMIT)
 	{
 		ft_putstr_fd(ERR_TABLE_LIMIT_1, STDERR_FILENO);
@@ -75,6 +79,10 @@ int	check_numeric(char *str)
 /* Description: performs input validation. Checks the following:
 	1. Correct number of arguments: 5 or 6
 	2. Each argument is are digits
+	3. time to die < MIN_TIME_DIE
+	4. eat reps < 1
+
+
 	3. Accept only between 1 and MAX philos
 	4. Handle the case of 1 philo
 */
@@ -94,6 +102,16 @@ int	input_validation(int argc, char *argv[])
 			return (EXIT_FAILURE);
 		}
 		argc--;
+	}
+	if (ft_atoi(argv[2]) < MIN_DIE_MS)
+	{
+		print_err(ERR_DIE_FAST);
+		return (EXIT_FAILURE);
+	}
+	if (argc == 6 || ft_atoi(argv[5]) < 1)
+	{
+		print_err(ERR_EAT_AIR);
+		return (EXIT_FAILURE);
 	}
 	if (ft_atoi(argv[1]) < 1 || ft_atoi(argv[1]) > MAX_PHILOS)
 	{

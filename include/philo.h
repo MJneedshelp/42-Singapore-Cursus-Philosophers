@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:49:46 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/23 20:23:32 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/23 20:43:42 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@
 /* Define the max number of philos accepted */
 # define MAX_PHILOS 100
 
+/* Define the min time to die */
+# define MIN_DIE_MS 200
+
 /* Define the delay at the start before the waiter to check */
 # define WAITER_WAIT 10000
 
@@ -40,7 +43,11 @@
 # define ERR_NO_ARG_1 "Please run the programme with only the following args: "
 # define ERR_NO_ARG_2 "No. of philos, time to die, time to eat, time to sleep, "
 # define ERR_NO_ARG_3 "and the number of times each philo eats (optional)."
-# define ERR_ARG_NUMERIC_1 "Please ensure that all your arguments are numeric."
+# define ERR_ARG_NUMERIC_1 "Please ensure that all your args are positive ints"
+# define ERR_DIE_FAST_1 "This is not a speed eating competition! > 200ms !"
+# define ERR_EAT_AIR_1 "Get out of here if you're not hungry!"
+
+
 # define ERR_TABLE_LIMIT_1 "This table only seats between 1 and "
 # define ERR_TABLE_LIMIT_2 " customers"
 # define ERR_EG_1 "E.g. ./philo 10 410 200 200 10"
@@ -63,6 +70,8 @@ enum	e_err_type
 {
 	ERR_NO_ARGS,
 	ERR_ARG_NUMERIC,
+	ERR_DIE_FAST,
+	ERR_EAT_AIR,
 	ERR_TABLE_LIMIT
 };
 
