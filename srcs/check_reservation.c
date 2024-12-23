@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 08:44:02 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/23 22:51:44 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/23 23:06:09 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	print_err(int type)
 		ft_putendl_fd(ERR_DIE_FAST_1, STDERR_FILENO);
 	else if (type == ERR_EAT_AIR)
 		ft_putendl_fd(ERR_EAT_AIR_1, STDERR_FILENO);
+	else if (type == ERR_NO_PHILO)
+		ft_putendl_fd(ERR_NO_PHILO_1, STDERR_FILENO);
 	else if (type == ERR_TABLE_LIMIT)
 	{
 		ft_putstr_fd(ERR_TABLE_LIMIT_1, STDERR_FILENO);
