@@ -6,7 +6,7 @@
 #    By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/15 22:10:59 by mintan            #+#    #+#              #
-#    Updated: 2024/12/22 18:04:02 by mintan           ###   ########.fr        #
+#    Updated: 2024/12/23 22:39:07 by mintan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ RELATIVE_SRCS = main.c initialisation_1.c initialisation_2.c meal.c waiter.c \
 cleanup.c check_reservation.c /utils/ft_atoi.c /utils/ft_putchar_fd.c \
 /utils/ft_strlen.c /utils/ft_putendl_fd.c /utils/ft_putstr_fd.c \
 /utils/mt_utils_1.c /utils/mt_utils_2.c /utils/gettime_utils.c \
-/utils/ft_isdigit.c /utils/ft_putnbr_fd.c
+/utils/ft_isdigit.c /utils/ft_putnbr_fd.c /utils/ft_atol.c
 
 SRCS = $(addprefix $(SRCDIR)/, $(RELATIVE_SRCS))
 OBJ = $(SRCS:.c=.o)

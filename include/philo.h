@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:49:46 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/23 22:25:57 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/23 22:50:23 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,14 @@
 # define WAITER_WAIT 10000
 
 /* Error messages */
-# define ERR_NO_ARG_1 "Please run the programme with only the following args: "
-# define ERR_NO_ARG_2 "No. of philos, time to die, time to eat, time to sleep, "
-# define ERR_NO_ARG_3 "and the number of times each philo eats (optional)."
-# define ERR_ARG_NUMERIC_1 "Please ensure that all your args are positive ints"
+# define ERR_NO_ARG_1 "READ THE MENU, you idiot. What does it say?"
+# define ERR_ARG_NUMERIC_1 "Tell me how you're going to eat -ve numbers"
 # define ERR_ARG_EXC_INT_1 "We only accept INTelligent customers"
-
 # define ERR_DIE_FAST_1 "This is not a speed eating competition! > 200ms !"
 # define ERR_EAT_AIR_1 "Get out of here if you're not hungry!"
+# define ERR_NO_PHILO_1 "We don't accept ghosts. Dead philos not welcome!"
 
-
-# define ERR_TABLE_LIMIT_1 "This table only seats between 1 and "
+# define ERR_TABLE_LIMIT_1 "This table is only big enough for "
 # define ERR_TABLE_LIMIT_2 " customers"
 # define ERR_EG_1 "E.g. ./philo 10 410 200 200 10"
 # define ERR_EG_2 "E.g. ./philo 10 410 200 200"
@@ -75,6 +72,7 @@ enum	e_err_type
 	ERR_ARG_EXC_INT,
 	ERR_DIE_FAST,
 	ERR_EAT_AIR,
+	ERR_NO_PHILO,
 	ERR_TABLE_LIMIT
 };
 
@@ -127,7 +125,8 @@ typedef struct s_philo
 }	t_philo;
 
 /* Initialisation */
-int		input_validation(int argc, char *argv[]);
+int		input_validation_1(int argc, char *argv[]);
+int		input_validation_2(int argc, char *argv[]);
 int		init_philos(t_config *cfg, t_philo *philos, int no_phil);
 int		arise_philos(t_config *cfg);
 int		create_forks(pthread_mutex_t *mt_forks, int no_phil);

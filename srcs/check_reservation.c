@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 08:44:02 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/23 22:28:49 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/23 22:51:44 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,11 @@
 void	print_err(int type)
 {
 	if (type == ERR_NO_ARGS)
-	{
-		ft_putstr_fd(ERR_NO_ARG_1, STDERR_FILENO);
-		ft_putstr_fd(ERR_NO_ARG_2, STDERR_FILENO);
-		ft_putendl_fd(ERR_NO_ARG_3, STDERR_FILENO);
-	}
+		ft_putendl_fd(ERR_NO_ARG_1, STDERR_FILENO);
 	else if (type == ERR_ARG_NUMERIC)
 		ft_putendl_fd(ERR_ARG_NUMERIC_1, STDERR_FILENO);
 	else if (type == ERR_ARG_EXC_INT)
-		ft_putendl_fd(ERR_ARG_EXC_INT, STDERR_FILENO);
+		ft_putendl_fd(ERR_ARG_EXC_INT_1, STDERR_FILENO);
 	else if (type == ERR_DIE_FAST)
 		ft_putendl_fd(ERR_DIE_FAST_1, STDERR_FILENO);
 	else if (type == ERR_EAT_AIR)
@@ -85,7 +81,7 @@ int	check_numeric(char *str)
 	4. time to die < MIN_TIME_DIE
 */
 
-int	input_validation(int argc, char *argv[])
+int	input_validation_1(int argc, char *argv[])
 {
 	if (argc != 5 && argc != 6)
 	{
@@ -114,35 +110,26 @@ int	input_validation(int argc, char *argv[])
 	return (EXIT_SUCCESS);
 }
 
-
-
-
-
-
-/*
-
-
-	4. eat reps < 1
-
-
-	3. Accept only between 1 and MAX philos
-	4. Handle the case of 1 philo
-
+/* Description: performs part 2 of the input validation. Checks the following:
+	1. eat reps < 1
+	2. 0 customers
+	2. Exceed MAX philos
+	3. Handle the case of 1 philo
 */
 
-
-
-
-
-	if (argc == 6 || ft_atoi(argv[5]) < 1)
+int	input_validation_2(int argc, char *argv[])
+{
+	if (argc == 6 && ft_atoi(argv[5]) < 1)
 	{
 		print_err(ERR_EAT_AIR);
 		return (EXIT_FAILURE);
 	}
-
-
-
-	if (ft_atoi(argv[1]) < 1 || ft_atoi(argv[1]) > MAX_PHILOS)
+	if (ft_atoi(argv[1]) == 0)
+	{
+		print_err(ERR_NO_PHILO);
+		return (EXIT_FAILURE);
+	}
+	if (ft_atoi(argv[1]) > MAX_PHILOS)
 	{
 		print_err(ERR_TABLE_LIMIT);
 		return (EXIT_FAILURE);
