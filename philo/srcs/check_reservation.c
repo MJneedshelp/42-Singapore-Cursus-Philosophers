@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 08:44:02 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/23 23:06:09 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/24 04:52:25 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	print_err(int type)
 		ft_putendl_fd(ERR_EAT_AIR_1, STDERR_FILENO);
 	else if (type == ERR_NO_PHILO)
 		ft_putendl_fd(ERR_NO_PHILO_1, STDERR_FILENO);
+	else if (type == ERR_EAT_SLP)
+		ft_putendl_fd(ERR_EAT_SLP_1, STDERR_FILENO);
 	else if (type == ERR_TABLE_LIMIT)
 	{
 		ft_putstr_fd(ERR_TABLE_LIMIT_1, STDERR_FILENO);
@@ -115,8 +117,9 @@ int	input_validation_1(int argc, char *argv[])
 /* Description: performs part 2 of the input validation. Checks the following:
 	1. eat reps < 1
 	2. 0 customers
-	2. Exceed MAX philos
-	3. Handle the case of 1 philo
+	3. Time to eat / sleep < MIN_EAT_SLEEP_MS
+	4. Exceed MAX philos
+	5. Handle the case of 1 philo
 */
 
 int	input_validation_2(int argc, char *argv[])
@@ -131,6 +134,13 @@ int	input_validation_2(int argc, char *argv[])
 		print_err(ERR_NO_PHILO);
 		return (EXIT_FAILURE);
 	}
+	if (ft_atoi(argv[3]) < MIN_EAT_SLEEP_MS || \
+	ft_atoi(argv[4]) < MIN_EAT_SLEEP_MS)
+	{
+		print_err(ERR_EAT_SLP);
+		return (EXIT_FAILURE);
+	}
+
 	if (ft_atoi(argv[1]) > MAX_PHILOS)
 	{
 		print_err(ERR_TABLE_LIMIT);

@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:49:46 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/23 23:04:19 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/24 04:51:24 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@
 /* Define the min time to die */
 # define MIN_DIE_MS 200
 
+/* Define the min time to eat / sleep  */
+# define MIN_EAT_SLEEP_MS 60
+
 /* Define the delay at the start before the waiter to check */
 # define WAITER_WAIT 10000
 
@@ -43,9 +46,11 @@
 # define ERR_NO_ARG_1 "READ THE MENU, you idiot. What does it say?"
 # define ERR_ARG_NUMERIC_1 "Do I have to make you eat you NEGATIVE WORDS?"
 # define ERR_ARG_EXC_INT_1 "We only accept INTelligent customers"
-# define ERR_DIE_FAST_1 "This is not a speed eating competition! >= 200ms!"
+# define ERR_DIE_FAST_1 "Can't wait to die do you?! >= 200ms!"
 # define ERR_EAT_AIR_1 "Get out of here if you're not hungry!"
 # define ERR_NO_PHILO_1 "We don't accept ghosts. Dead philos not welcome!"
+# define ERR_EAT_SLP_1 "This isn't a speed eating/thinking competition > 60ms!"
+
 # define ERR_TABLE_LIMIT_1 "This table is only big enough for "
 # define ERR_TABLE_LIMIT_2 " customers"
 # define ERR_EG_1 "E.g. ./philo 10 410 200 200 10"
@@ -72,6 +77,7 @@ enum	e_err_type
 	ERR_DIE_FAST,
 	ERR_EAT_AIR,
 	ERR_NO_PHILO,
+	ERR_EAT_SLP,
 	ERR_TABLE_LIMIT
 };
 
