@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 08:44:02 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/22 15:50:29 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/23 00:04:50 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	print_err(int type)
 void	lone_customer(char *argv[])
 {
 	printf(GREEN"%ld " RED"1 has taken a fork\n"RESET, checktime());
-	usleep(ft_atoi(argv[2]) * 1000);
+	usleep(ft_atoi(argv[2]));
 	printf(GREEN"%ld " NORM_WHITE"1 died\n"RESET, checktime());
 	if (argv[2] == NULL)
 		printf("Correct\n");

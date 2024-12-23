@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:49:46 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/22 16:52:03 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/23 20:23:32 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_config
 	int				die_ms;
 	int				eat_ms;
 	int				sleep_ms;
+	int				think_ms;
 	int				eat_reps;
 	int				meal_end;
 	int				all_seated;

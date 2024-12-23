@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 12:12:44 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/22 15:12:00 by mintan           ###   ########.fr       */
+/*   Updated: 2024/12/23 20:25:34 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,13 @@ int	init_all_mutex(t_config *cfg)
 int	init_config(t_config *cfg, int argc, char *argv[])
 {
 	cfg->no_phil = ft_atoi(argv[1]);
-	cfg->die_ms = ft_atoi(argv[2]);
-	cfg->eat_ms = ft_atoi(argv[3]);
-	cfg->sleep_ms = ft_atoi(argv[4]);
+	cfg->die_ms = ft_atoi(argv[2]) * 1000;
+	cfg->eat_ms = ft_atoi(argv[3]) * 1000;
+	cfg->sleep_ms = ft_atoi(argv[4]) * 1000;
+	if (cfg->no_phil % 2 != 0 && cfg->eat_ms >= cfg->sleep_ms)
+		cfg->think_ms = cfg->sleep_ms - cfg->eat_ms + 1;
+	else
+		cfg->think_ms = - 1;
 	cfg->eat_reps = -1;
 	if (argc > 5)
 		cfg->eat_reps = ft_atoi(argv[5]);

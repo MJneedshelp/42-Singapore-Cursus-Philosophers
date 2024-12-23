@@ -49,7 +49,7 @@ void	eat(t_philo *me)
 	print_status(me->p_no, GRAB_SECOND_FORK, me);
 	eat_start = print_status(me->p_no, EATING, me);
 	set_long(&(me->ms_last_eat), eat_start, &(me->mt_me));
-	usleep(me->cfg->eat_ms * 1000);
+	usleep(me->cfg->eat_ms);
 	pthread_mutex_unlock(me->first_fork);
 	pthread_mutex_unlock(me->second_fork);
 	if (eat_reps != -1)
@@ -66,7 +66,7 @@ void	eat(t_philo *me)
 void	dream(t_philo *me)
 {
 	print_status(me->p_no, SLEEPING, me);
-	usleep(me->cfg->sleep_ms * 1000);
+	usleep(me->cfg->sleep_ms);
 }
 
 /* Description: Prints the thinking status. usleeps for the half the sleep
@@ -77,9 +77,8 @@ void	dream(t_philo *me)
 void	wonder(t_philo *me)
 {
 	print_status(me->p_no, THINKING, me);
-	if (me->cfg->no_phil % 2 != 0 && (me->cfg->eat_ms == me->cfg->sleep_ms || \
-	me->cfg->eat_ms > me->cfg->sleep_ms))
-		usleep(0.5 * me->cfg->sleep_ms * 1000);
+	if (me->cfg->no_phil % 2 != 0 && me->cfg->eat_ms >= me->cfg->sleep_ms)
+		usleep(me->cfg->think_ms);
 }
 
 /* Description: The routine function called by each philo thread when each
@@ -111,7 +110,7 @@ void	*meal_start(void *data)
 	if (me->p_no % 2 == 0)
 	{
 		print_status(me->p_no, SLEEPING, me);
-		usleep(me->cfg->sleep_ms * 1000);
+		usleep(me->cfg->sleep_ms);
 		print_status(me->p_no, THINKING, me);
 	}
 	while (get_bool(&(me->cfg->meal_end), &(me->cfg->mt_cfg)) == FALSE)
