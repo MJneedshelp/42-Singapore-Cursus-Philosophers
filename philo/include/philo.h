@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:49:46 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/24 05:05:32 by mintan           ###   ########.fr       */
+/*   Updated: 2025/01/16 10:32:30 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@
 
 /* Error messages */
 # define ERR_NO_ARG_1 "READ THE MENU, you idiot. What does it say?"
-# define ERR_ARG_NUMERIC_1 "Do I have to make you eat you NEGATIVE WORDS?"
+# define ERR_ARG_NUMERIC_1 "Numbers come on!"
 # define ERR_ARG_EXC_INT_1 "We only accept INTelligent customers"
 # define ERR_DIE_FAST_1 "Can't wait to die do you?! >= 200ms!"
 # define ERR_EAT_AIR_1 "Get out of here if you're not hungry!"
