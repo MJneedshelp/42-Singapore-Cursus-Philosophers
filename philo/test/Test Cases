@@ -6,7 +6,7 @@
 #    By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/18 15:20:16 by mintan            #+#    #+#              #
-#    Updated: 2025/01/18 15:48:35 by mintan           ###   ########.fr        #
+#    Updated: 2025/01/18 16:07:21 by mintan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,11 @@ c. ./philo 4 210 100 100 2
 3. Odd number of philos with sufficient time
 a. ./philo 3 510 100 100
 b. ./philo 5 800 200 200
+c. ./philo 5 800 200 100
+d. ./philo 5 800 200 200 7
 
 
 
+To induce a data race
+
+1. Add cfg.start_time = checktime(); before waiter thread creation as multiple threads will access the cfg start time
