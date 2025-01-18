@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 09:14:02 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/22 16:45:24 by mintan           ###   ########.fr       */
+/*   Updated: 2025/01/18 15:08:16 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int	all_bill(int no_phil, int *bill)
 }
 
 /* Description: Checks if the current philo is dead based on their last eat
-   time if the philo is not already full. If the philo is full, bill them.
+   time if the philo is not already full. Update meal_end as true in
+   print_status function. If the philo is full, bill them.
 */
 
 int	check_dead(t_philo *curr_philo, t_config *cfg, unsigned int ctr)
@@ -62,7 +63,8 @@ int	check_dead(t_philo *curr_philo, t_config *cfg, unsigned int ctr)
 	1. Checks if the philo is full already. Skip step 2 if philo is full
 	2. Get current time, checks philo's last eat time -> determine if philo is
 	   dead
-	3. Update the meal_end variable to TRUE if some philo died
+	3. Update the meal_end variable to TRUE if some philo within the check_dead
+	   function
 	4. If the philo is full, update the index of the philo as full in cfg->bill
 	   - No need to mutex lock since this struct member is only touched by the
 	   waiter
