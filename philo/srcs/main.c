@@ -6,11 +6,29 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 11:25:48 by mintan            #+#    #+#             */
-/*   Updated: 2025/01/16 10:24:14 by mintan           ###   ########.fr       */
+/*   Updated: 2025/01/18 10:06:38 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+/* Description: Performs all the input validations from input_validation_1 and
+   input_validation_2. Also handles the case when there is only 1 philo.
+*/
+
+int	overall_validation(int argc, char *argv[])
+{
+	if (input_validation_1(argc, argv) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	if (input_validation_2(argc, argv) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	if (ft_atoi(argv[1]) == 1)
+	{
+		lone_customer(argv);
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
 
 /* Description: Main function of the programme. Sequence of events:
 	1. Input validation: Exit programme if there are input errors / edge cases
@@ -29,18 +47,19 @@ int	main(int argc, char *argv[])
 	t_config	cfg;
 	pthread_t	waiter;
 
-	if (input_validation_1(argc, argv) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	if (input_validation_2(argc, argv) == EXIT_FAILURE)
+	// if (input_validation_1(argc, argv) == EXIT_FAILURE)
+	// 	return (EXIT_FAILURE);
+	// if (input_validation_2(argc, argv) == EXIT_FAILURE)
+	// 	return (EXIT_FAILURE);
+
+	if (overall_validation(argc, argv) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	if (init_config(&cfg, argc, argv) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	if (arise_philos(&cfg) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-
 	set_long(&(cfg.start_time), checktime(), &cfg.mt_print);
 	set_bool(&(cfg.all_seated), TRUE, &cfg.mt_cfg);
-
 	if (pthread_create(&waiter, NULL, waiter_start, &cfg) != 0)
 	{
 		destroy_all_mutex(&cfg, 4);

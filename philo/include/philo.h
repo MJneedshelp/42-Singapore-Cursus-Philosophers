@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:49:46 by mintan            #+#    #+#             */
-/*   Updated: 2025/01/16 10:32:30 by mintan           ###   ########.fr       */
+/*   Updated: 2025/01/18 10:05:10 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define MIN_DIE_MS 200
 
 /* Define the min time to eat / sleep  */
-# define MIN_EAT_SLEEP_MS 60
+# define MIN_ACT_MS 60
 
 /* Define the delay at the start before the waiter to check */
 # define WAITER_WAIT 10000
@@ -133,6 +133,7 @@ typedef struct s_philo
 /* Initialisation */
 int		input_validation_1(int argc, char *argv[]);
 int		input_validation_2(int argc, char *argv[]);
+void	lone_customer(char *argv[]);
 int		init_philos(t_config *cfg, t_philo *philos, int no_phil);
 int		arise_philos(t_config *cfg);
 int		create_forks(pthread_mutex_t *mt_forks, int no_phil);

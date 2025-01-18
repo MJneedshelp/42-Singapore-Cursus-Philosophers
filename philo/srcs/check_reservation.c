@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 08:44:02 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/24 04:52:25 by mintan           ###   ########.fr       */
+/*   Updated: 2025/01/18 10:06:09 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,22 +134,20 @@ int	input_validation_2(int argc, char *argv[])
 		print_err(ERR_NO_PHILO);
 		return (EXIT_FAILURE);
 	}
-	if (ft_atoi(argv[3]) < MIN_EAT_SLEEP_MS || \
-	ft_atoi(argv[4]) < MIN_EAT_SLEEP_MS)
+	if (ft_atoi(argv[3]) < MIN_ACT_MS || ft_atoi(argv[4]) < MIN_ACT_MS)
 	{
 		print_err(ERR_EAT_SLP);
 		return (EXIT_FAILURE);
 	}
-
 	if (ft_atoi(argv[1]) > MAX_PHILOS)
 	{
 		print_err(ERR_TABLE_LIMIT);
 		return (EXIT_FAILURE);
 	}
-	if (ft_atoi(argv[1]) == 1)
-	{
-		lone_customer(argv);
-		return (EXIT_FAILURE);
-	}
+	// if (ft_atoi(argv[1]) == 1)
+	// {
+	// 	lone_customer(argv);
+	// 	return (EXIT_FAILURE);
+	// }
 	return (EXIT_SUCCESS);
 }

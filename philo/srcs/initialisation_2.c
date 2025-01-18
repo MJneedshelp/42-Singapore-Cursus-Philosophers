@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 12:12:44 by mintan            #+#    #+#             */
-/*   Updated: 2024/12/23 23:09:05 by mintan           ###   ########.fr       */
+/*   Updated: 2025/01/18 09:53:52 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	init_config(t_config *cfg, int argc, char *argv[])
 	if (cfg->no_phil % 2 != 0 && cfg->eat_ms >= cfg->sleep_ms)
 		cfg->think_ms = cfg->eat_ms - cfg->sleep_ms + 1;
 	else
-		cfg->think_ms = - 1;
+		cfg->think_ms = -1;
 	cfg->eat_reps = -1;
 	if (argc > 5)
 		cfg->eat_reps = ft_atoi(argv[5]);
