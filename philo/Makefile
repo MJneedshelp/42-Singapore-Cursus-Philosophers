@@ -6,14 +6,13 @@
 #    By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/15 22:10:59 by mintan            #+#    #+#              #
-#    Updated: 2024/12/24 05:08:20 by mintan           ###   ########.fr        #
+#    Updated: 2025/01/18 15:19:31 by mintan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Compiler + compile flags
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -pthread -g -fsanitize=thread
-
 
 # Definitions
 NAME = philo
@@ -26,7 +25,6 @@ cleanup.c check_reservation.c /utils/ft_atoi.c /utils/ft_putchar_fd.c \
 
 SRCS = $(addprefix $(SRCDIR)/, $(RELATIVE_SRCS))
 OBJ = $(SRCS:.c=.o)
-
 
 # Target to make using Make all
 all: $(NAME) print_art
