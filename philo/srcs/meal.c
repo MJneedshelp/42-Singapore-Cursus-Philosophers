@@ -87,7 +87,8 @@ void	wonder(t_philo *me)
    Performs the following actions:
 	1. Waits for all philos to be seated at the table
 	2. Sets the start time as the last eat time
-	3. Sets a condition for the even numbered philos to sleep first
+	3. Sets a condition for the even numbered philos to sleep first if there
+	   is an even number of philos
 	4. While meal is ongoing:
 		a. Check if I am full. Break if full
 		b. Eat
