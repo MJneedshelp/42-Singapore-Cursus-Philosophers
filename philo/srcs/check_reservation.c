@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 08:44:02 by mintan            #+#    #+#             */
-/*   Updated: 2025/01/18 10:06:09 by mintan           ###   ########.fr       */
+/*   Updated: 2025/01/18 10:37:04 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ void	print_err(int type)
 
 void	lone_customer(char *argv[])
 {
-	printf(GREEN"%ld " RED"1 has taken a fork\n"RESET, checktime());
+	printf(GREEN"%d " RED"1 has taken a fork\n"RESET, 0);
 	usleep(ft_atoi(argv[2]));
-	printf(GREEN"%ld " NORM_WHITE"1 died\n"RESET, checktime());
+	printf(GREEN"%d " NORM_WHITE"1 died\n"RESET, 0 + ft_atoi(argv[2]));
 	if (argv[2] == NULL)
 		printf("Correct\n");
 }
@@ -119,7 +119,6 @@ int	input_validation_1(int argc, char *argv[])
 	2. 0 customers
 	3. Time to eat / sleep < MIN_EAT_SLEEP_MS
 	4. Exceed MAX philos
-	5. Handle the case of 1 philo
 */
 
 int	input_validation_2(int argc, char *argv[])
@@ -144,10 +143,5 @@ int	input_validation_2(int argc, char *argv[])
 		print_err(ERR_TABLE_LIMIT);
 		return (EXIT_FAILURE);
 	}
-	// if (ft_atoi(argv[1]) == 1)
-	// {
-	// 	lone_customer(argv);
-	// 	return (EXIT_FAILURE);
-	// }
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 11:25:48 by mintan            #+#    #+#             */
-/*   Updated: 2025/01/18 10:06:38 by mintan           ###   ########.fr       */
+/*   Updated: 2025/01/18 10:38:18 by mintan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,6 @@ int	main(int argc, char *argv[])
 {
 	t_config	cfg;
 	pthread_t	waiter;
-
-	// if (input_validation_1(argc, argv) == EXIT_FAILURE)
-	// 	return (EXIT_FAILURE);
-	// if (input_validation_2(argc, argv) == EXIT_FAILURE)
-	// 	return (EXIT_FAILURE);
 
 	if (overall_validation(argc, argv) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
