@@ -6,7 +6,7 @@
 #    By: mintan <mintan@student.42singapore.sg>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/18 15:20:16 by mintan            #+#    #+#              #
-#    Updated: 2025/01/18 16:07:21 by mintan           ###   ########.fr        #
+#    Updated: 2025/01/19 10:29:58 by mintan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ a. ./philo 101 210 100 100
 
 9. 1 philo
 a. ./philo 1 210 100 100
+b. ./philo 1 800 200 200
 
 
 Eat cases
@@ -64,7 +65,13 @@ c. ./philo 5 800 200 100
 d. ./philo 5 800 200 200 7
 
 
-
 To induce a data race
 
 1. Add cfg.start_time = checktime(); before waiter thread creation as multiple threads will access the cfg start time
+
+2. valgrind --tool=helgrind --fair-sched=yes ./philo
+
+
+To check for forbidden external functions
+
+1. nm -u philo
